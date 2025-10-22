@@ -6,7 +6,6 @@
     <title>Tech-Priest Raghav Pareek | Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Libraries -->
     <script type="importmap">
     {
         "imports": {
@@ -54,21 +53,61 @@
             text-shadow: 0 0 4px rgba(176, 0, 0, 0.7);
         }
 
-        #hero-canvas, #about-canvas { cursor: none; }
-        
-        .custom-cursor {
-            position: fixed; top: 0; left: 0;
-            width: 24px; height: 24px;
-            border: 2px solid var(--cursor-color);
-            border-radius: 50%;
-            pointer-events: none; z-index: 9999;
-            transition: transform 0.1s ease-out, background-color 0.2s, border-color 0.2s;
-            mix-blend-mode: difference;
+        /* --- Mechanicus Cursor Set --- */
+        html, body {
+            /* 'normal.cur' is the default cursor for the page */
+            cursor: url('cursors/normal.cur'), auto;
         }
-        .custom-cursor.clicked {
-            transform: translate(-50%, -50%) scale(0.8);
-            background-color: var(--cursor-color);
+
+        /* 'link.cur' for all clickable/interactive elements */
+        a, button, .project-card, .tech-card, .contact-icon-link, 
+        .filter-btn, #mute-btn, .modal-close-btn, #mobile-menu-button {
+            cursor: url('cursors/link.cur'), pointer;
         }
+
+        /* 'text.cur' for selecting text */
+        p, h1, h2, h3, span, li, input, textarea {
+            cursor: url('cursors/text.cur'), text;
+        }
+
+        /* 'working.ani' for loading states (your preloader) */
+        body.loading, body.wait {
+            cursor: url('cursors/working.ani'), wait;
+        }
+
+        /* 'busy.ani' for when the page is processing */
+        body.busy {
+            cursor: url('cursors/busy.ani'), progress;
+        }
+
+        /* 'help.cur' for help elements */
+        .help-element { /* You can add this class to any help icons */
+            cursor: url('cursors/help.cur'), help;
+        }
+
+        /* 'unavailable.cur' for disabled elements */
+        button:disabled {
+             cursor: url('cursors/unavailable.cur'), not-allowed;
+        }
+
+        /* You can also add the others for resizing, etc. */
+        .resize-vertical {
+            cursor: url('cursors/vertical.cur'), ns-resize;
+        }
+        .resize-horizontal {
+            cursor: url('cursors/horizontal.cur'), ew-resize;
+        }
+        .resize-diagonal-1 {
+            cursor: url('cursors/diagonal-1.cur'), nwse-resize;
+        }
+        .resize-diagonal-2 {
+            cursor: url('cursors/diagonal-2.cur'), nesw-resize;
+        }
+        .moveable-element {
+            cursor: url('cursors/move.cur'), move;
+        }
+        /* --- End of Mechanicus Cursor Set --- */
+
 
         .header {
             background-color: rgba(10, 10, 10, 0.85);
@@ -106,7 +145,7 @@
             border: 1px solid var(--primary-red);
             box-shadow: 0 0 10px rgba(176, 0, 0, 0.5);
             backdrop-filter: blur(5px);
-            cursor: pointer;
+            /* cursor: pointer; <-- This is now handled by the new cursor rules */
         }
         .project-card:hover, .tech-border:hover {
             transform: translateY(-8px);
@@ -187,7 +226,8 @@
         #mute-btn {
             position: fixed; top: 1.25rem; right: 1.25rem; z-index: 1000;
             background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 50%;
-            cursor: pointer; transition: background-color 0.3s;
+            /* cursor: pointer; <-- This is now handled by the new cursor rules */
+            transition: background-color 0.3s;
         }
         #mute-btn:hover { background: rgba(176, 0, 0, 0.5); }
 
@@ -195,7 +235,7 @@
             background-color: rgba(21, 16, 48, 0.1);
             border: 1px solid rgba(176, 0, 0, 0.2);
             transition: all 0.4s ease;
-            cursor: pointer;
+            /* cursor: pointer; <-- This is now handled by the new cursor rules */
         }
         .tech-card:hover {
             background-color: rgba(176, 0, 0, 0.1);
@@ -225,7 +265,7 @@
 <body class="relative loading">
 
     <div id="preloader"><div class="loader-cog"></div></div>
-    <div id="custom-cursor" class="custom-cursor"></div>
+    
     <button id="mute-btn">
         <svg id="sound-on-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707a1 1 0 011.414 0v14a1 1 0 01-1.414 0L5.586 15z"></path></svg>
         <svg id="sound-off-icon" class="w-6 h-6 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707a1 1 0 011.414 0v14a1 1 0 01-1.414 0L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
@@ -404,7 +444,6 @@
 
             const clock = new THREE.Clock();
             const mouse = new THREE.Vector2();
-            const customCursor = document.getElementById('custom-cursor');
             let soundsReady = false;
             let isMuted = true;
 
@@ -591,17 +630,14 @@
             window.addEventListener('mousemove', e => {
                 mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
                 mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-                customCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
             });
             window.addEventListener('mousedown', () => {
-                customCursor.classList.add('clicked');
                 if (!soundsReady) {
                     Tone.start();
                     soundsReady = true;
                 }
                 playClick();
             });
-            window.addEventListener('mouseup', () => customCursor.classList.remove('clicked'));
             
             // --- MUTE BUTTON ---
             const muteBtn = document.getElementById('mute-btn');
@@ -851,4 +887,3 @@
     </script>
 </body>
 </html>
-
