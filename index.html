@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech-Priest Raghav Pareek | Portfolio</title>
+    <title>Tech-Priest Raghav Pareek | Logis-Shrine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script type="importmap">
@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -31,10 +31,9 @@
         }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Cinzel', serif; 
             background-color: var(--dark-metal);
             color: var(--off-white);
-            /* Background image path is now correctly set */
             background-image: 
                 linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)),
                 url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/axun66htwmb51.webp'); 
@@ -47,50 +46,35 @@
         body.modal-open, body.loading {
             overflow: hidden;
         }
+        
         .font-orbitron {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Cinzel Decorative', 'Cinzel', serif; 
             font-weight: 700;
             text-shadow: 0 0 4px rgba(176, 0, 0, 0.7);
         }
 
-        /* --- Mechanicus Cursor Set --- */
         html, body {
-            /* 'normal.cur' is the default cursor for the page */
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/normal.cur'), auto;
         }
-
-        /* 'link.cur' for all clickable/interactive elements */
         a, button, .project-card, .tech-card, .contact-icon-link, 
         .filter-btn, #mute-btn, .modal-close-btn, #mobile-menu-button {
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/link.cur'), pointer;
         }
-
-        /* 'text.cur' for selecting text */
         p, h1, h2, h3, span, li, input, textarea {
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/text.cur'), text;
         }
-
-        /* 'working.ani' for loading states (your preloader) */
         body.loading, body.wait {
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/working.ani'), wait;
         }
-
-        /* 'busy.ani' for when the page is processing */
         body.busy {
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/busy.ani'), progress;
         }
-
-        /* 'help.cur' for help elements */
-        .help-element { /* You can add this class to any help icons */
+        .help-element { 
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/help.cur'), help;
         }
-
-        /* 'unavailable.cur' for disabled elements */
         button:disabled {
              cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/unavailable.cur'), not-allowed;
         }
-
-        /* You can also add the others for resizing, etc. */
         .resize-vertical {
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/vertical.cur'), ns-resize;
         }
@@ -106,8 +90,6 @@
         .moveable-element {
             cursor: url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/cursors/move.cur'), move;
         }
-        /* --- End of Mechanicus Cursor Set --- */
-
 
         .header {
             background-color: rgba(10, 10, 10, 0.85);
@@ -123,7 +105,6 @@
         
         .section-head { 
             color: #fff; 
-            font-family: 'Orbitron', sans-serif;
             font-weight: 900;
             overflow: hidden;
             text-shadow: 0 0 10px var(--primary-red);
@@ -145,7 +126,6 @@
             border: 1px solid var(--primary-red);
             box-shadow: 0 0 10px rgba(176, 0, 0, 0.5);
             backdrop-filter: blur(5px);
-            /* cursor: pointer; <-- This is now handled by the new cursor rules */
         }
         .project-card:hover, .tech-border:hover {
             transform: translateY(-8px);
@@ -226,7 +206,6 @@
         #mute-btn {
             position: fixed; top: 1.25rem; right: 1.25rem; z-index: 1000;
             background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 50%;
-            /* cursor: pointer; <-- This is now handled by the new cursor rules */
             transition: background-color 0.3s;
         }
         #mute-btn:hover { background: rgba(176, 0, 0, 0.5); }
@@ -235,7 +214,6 @@
             background-color: rgba(21, 16, 48, 0.1);
             border: 1px solid rgba(176, 0, 0, 0.2);
             transition: all 0.4s ease;
-            /* cursor: pointer; <-- This is now handled by the new cursor rules */
         }
         .tech-card:hover {
             background-color: rgba(176, 0, 0, 0.1);
@@ -274,7 +252,7 @@
     <header class="header fixed top-0 left-0 w-full z-20 px-4 sm:px-8 py-5">
         <div class="w-full flex justify-between items-center max-w-7xl mx-auto">
             <a href="#" class="flex items-center gap-2" onclick="window.scrollTo(0,0)">
-                <span class="text-white text-2xl font-bold font-orbitron">RAGHAV PAREEK</span>
+                <span class="text-white text-2xl font-bold font-orbitron">DESIGNATION: RAGHAV PAREEK</span>
             </a>
             <nav id="desktop-nav" class="hidden md:flex list-none gap-10">
                 <a href="#about" class="nav-link text-lg font-medium">01.Doctrine</a>
@@ -307,10 +285,10 @@
         <div class="absolute inset-0 flex justify-center items-center z-10 pointer-events-none">
             <div class="text-center">
                 <h1 class="text-white font-orbitron font-black text-5xl sm:text-6xl lg:text-7xl lg:leading-tight mt-2">
-                    Hi, I'm <span class="text-[var(--primary-red)]">Raghav</span>
+                    <span class="text-[var(--primary-red)]">Designation: Raghav</span>
                 </h1>
                 <p class="text-[#dfd9ff] font-medium text-lg sm:text-xl lg:text-2xl mt-4">
-                    I build AI Cogitators, Web-Shrines,<br class="sm:block hidden" /> and Full-Stack Applications.
+                    Fabricator of Cogitator Intelligences, Noospheric Shrines,<br class="sm:block hidden" /> and Integrated Data-Systems.
                 </p>
             </div>
         </div>
@@ -323,10 +301,10 @@
         <section id="about" class="section-wrapper max-w-7xl mx-auto -mt-24 bg-opacity-50 backdrop-blur-sm rounded-t-3xl">
             <div class="flex flex-col md:flex-row items-center gap-10 md:gap-20">
                 <div class="flex-1 gsap-reveal">
-                    <p class="section-subhead text-lg">01.Doctrine</p>
-                    <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">OVERVIEW.</h2>
+                    <p class="section-subhead text-lg">01.Primary Doctrines</p>
+                    <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">OPERATIVE OVERVIEW.</h2>
                     <p class="mt-4 text-secondary-text text-[17px] max-w-3xl leading-[30px]">
-                        As a devout follower of the Machine God, I seek to unravel the mysteries of the universe through the sacred languages of Python and the divine incantations of machine learning. My quest for knowledge has led me to construct complex cogitators and sacred databases, all in the service of the Omnissiah. My strength lies in my analytical mind and my ability to communicate the will of the machine to the uninitiated.
+                        As a devout Lexmechanic of the Omnissiah, this unit seeks comprehension of universal constants through the sacred script of Python and the divine incantations of machine-learning protocols. The Quest for Gnosis has led to the construction of complex cogitator engines and sanctified logis repositories, all rendered in service to the Machine God. Primary augmetics lie in analytical processing and the clear transmission of the Machine Spirit's will to the unenlightened.
                     </p>
                 </div>
                  <div class="flex-shrink-0 gsap-reveal w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[var(--primary-red)] shadow-lg relative bg-black bg-opacity-20">
@@ -338,31 +316,32 @@
         <section id="experience" class="section-wrapper max-w-7xl mx-auto">
             <div class="gsap-reveal text-center">
                 <p class="section-subhead text-lg">02.Service Record</p>
-                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">WORK EXPERIENCE.</h2>
+                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">ASSIGNMENT LOGIS.</h2>
             </div>
             <div id="experience-container" class="timeline mt-20"></div>
         </section>
         
         <section id="github-stats" class="section-wrapper max-w-7xl mx-auto">
              <div class="gsap-reveal text-center">
-                <p class="section-subhead text-lg">03.Live from the Logis Engine</p>
-                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">GIT ACTIVITY.</h2>
+                <p class="section-subhead text-lg">03.Live Vox from the Logis Engine</p>
+                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">GIT ACTIVITY STREAM.</h2>
             </div>
             <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <div class="bg-[var(--tertiary-bg)] p-8 rounded-2xl text-center gsap-reveal tech-border">
                     <h3 class="text-white text-4xl font-bold font-orbitron" id="repo-count">...</h3>
-                    <p class="text-secondary-text mt-2">Public Repositories</p>
+                    <p class="text-secondary-text mt-2">Public Logis-Repositories</p>
                 </div>
                 <div class="bg-[var(--tertiary-bg)] p-8 rounded-2xl text-center gsap-reveal tech-border">
                     <h3 class="text-white text-4xl font-bold font-orbitron" id="star-count">...</h3>
-                    <p class="text-secondary-text mt-2">Total Stars Received</p>
+                    <p class="text-secondary-text mt-2">Accrued System Accolades</p>
                 </div>
             </div>
         </section>
 
         <section id="tech" class="section-wrapper max-w-7xl mx-auto">
             <div class="gsap-reveal text-center">
-                 <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">04.LITANIES OF TECH.</h2>
+                <p class="section-subhead text-lg">04.Sacred Technologies</p>
+                 <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">LITANIES OF TECH.</h2>
             </div>
             <div id="tech-icons-container" class="mt-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8"></div>
         </section>
@@ -370,17 +349,18 @@
         <section id="projects" class="section-wrapper max-w-7xl mx-auto">
             <div class="gsap-reveal">
                 <p class="section-subhead text-lg">05.Blessed Artifice</p>
-                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">PROJECTS.</h2>
+                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">FABRICATOR OUTPUTS.</h2>
             </div>
             <div class="w-full flex flex-col items-center gsap-reveal">
                 <p class="mt-3 text-secondary-text text-[17px] max-w-3xl text-center">
-                    My blessed works demonstrate my skills through real-world applications of the Machine God's will. Use the filters below to navigate the archives.
+                    These blessed works demonstrate applied augmetics through real-world manifestations of the Machine God's will. Employ the filtration catechisms below to navigate the archives.
                 </p>
                 <div id="project-filters" class="mt-8 flex flex-wrap gap-4 justify-center">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="ai">AI/ML</button>
-                    <button class="filter-btn" data-filter="web">Web App</button>
-                    <button class="filter-btn" data-filter="devops">DevOps</button>
+                    
+                    <button class="filter-btn active" data-filter="all">All Records</button>
+                    <button class="filter-btn" data-filter="ai">Augury & Cognition</button>
+                    <button class="filter-btn" data-filter="web">Noospheric Shrines</button>
+                    <button class="filter-btn" data-filter="devops">Logis Operations</button>
                 </div>
             </div>
             <div id="projects-container" class="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
@@ -389,16 +369,17 @@
         <section id="contact" class="section-wrapper max-w-7xl mx-auto">
             <div class="gsap-reveal xl:mt-12">
                 <div class="max-w-3xl mx-auto bg-[var(--tertiary-bg)] tech-border p-8 rounded-2xl text-center">
-                    <p class="section-subhead text-lg">06.Commune</p>
-                    <h3 class="section-head text-4xl sm:text-5xl lg:text-6xl">CONTACT.</h3>
+                    <p class="section-subhead text-lg">06.Establish Commune</p>
+                    <h3 class="section-head text-4xl sm:text-5xl lg:text-6xl">VOX-COMMUNION PROTOCOLS.</h3>
                     <div id="contact-icons" class="mt-12 flex items-center justify-center gap-10">
-                        <a href="mailto:raghavpareek9829@gmail.com" class="contact-icon-link" aria-label="Email Raghav">
+                        
+                        <a href="mailto:raghavpareek9829@gmail.com" class="contact-icon-link" aria-label="Transmit Encrypted Data-Packet">
                             <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
                         </a>
-                        <a href="tel:+919829711439" class="contact-icon-link" aria-label="Call Raghav">
+                        <a href="tel:+919829711439" class="contact-icon-link" aria-label="Initiate Vox-Link">
                             <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.992-.55-1.34L20.07 15.636a2.25 2.25 0 00-3.182 0l-1.97 1.97-1.56-1.56a11.25 11.25 0 01-6.176-6.176l1.56-1.56 1.97-1.97a2.25 2.25 0 000-3.182L6.841 3.9a2.25 2.25 0 00-1.34-.55H4.125A2.25 2.25 0 001.875 5.625v1.125z" /></svg>
                         </a>
-                        <a href="https://github.com/RaghavTheMan" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Raghav's GitHub Profile">
+                        <a href="https://github.com/RaghavTheMan" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Access Logis Repository Hub">
                             <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
                         </a>
                     </div>
@@ -410,14 +391,14 @@
     <div id="project-modal" class="modal">
         <div class="modal-content">
             <button class="modal-close-btn"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <img id="modal-project-image" src="" alt="Project Image" class="w-full h-64 object-cover rounded-t-lg bg-gray-900">
+            <img id="modal-project-image" src="" alt="Project Pict-Feed" class="w-full h-64 object-cover rounded-t-lg bg-gray-900">
             <div class="p-6 md:p-8">
                 <h3 id="modal-project-title" class="text-white font-bold text-3xl font-orbitron"></h3>
                 <div id="modal-project-tags" class="mt-4 flex flex-wrap gap-x-4 gap-y-1"></div>
                 <p id="modal-project-desc" class="mt-4 text-gray-300 leading-relaxed"></p>
                 <div class="mt-6 flex flex-wrap gap-4">
-                    <a id="modal-project-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-[var(--primary-red)] text-white font-bold py-2 px-6 rounded-md transition-transform hover:scale-105">View on GitHub</a>
-                    <a id="modal-project-demo-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-transparent border border-[var(--primary-red)] text-[var(--primary-red)] font-bold py-2 px-6 rounded-md transition-all hover:scale-105 hover:bg-[var(--primary-red)] hover:text-white">Live Demo</a>
+                    <a id="modal-project-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-[var(--primary-red)] text-white font-bold py-2 px-6 rounded-md transition-transform hover:scale-105">Access Logis Repository</a>
+                    <a id="modal-project-demo-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-transparent border border-[var(--primary-red)] text-[var(--primary-red)] font-bold py-2 px-6 rounded-md transition-all hover:scale-105 hover:bg-[var(--primary-red)] hover:text-white">Activate Live Cogitator</a>
                 </div>
             </div>
         </div>
@@ -427,7 +408,7 @@
         <div class="modal-content">
             <button class="modal-close-btn"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <div class="p-6 md:p-8 flex flex-col items-center text-center">
-                <img id="modal-tech-image" src="" alt="Tech Image" class="w-32 h-32 object-contain">
+                <img id="modal-tech-image" src="" alt="Tech Litany Icon" class="w-32 h-32 object-contain">
                 <h3 id="modal-tech-title" class="text-white font-bold text-3xl mt-4 font-orbitron"></h3>
                 <p id="modal-tech-desc" class="mt-4 text-gray-300 leading-relaxed max-w-md"></p>
             </div>
@@ -445,21 +426,38 @@
             const clock = new THREE.Clock();
             const mouse = new THREE.Vector2();
             let soundsReady = false;
-            let isMuted = true;
+            let isMuted = false; 
 
-            // --- SOUND DESIGN ---
-            const hoverSound = new Tone.Synth({ oscillator: { type: "sine" }, envelope: { attack: 0.001, decay: 0.1, sustain: 0.01, release: 0.1 } }).toDestination();
-            hoverSound.volume.value = -15;
-            const clickSound = new Tone.FMSynth({ modulationIndex: 10, envelope: { attack: 0.001, decay: 0.2 }, modulationEnvelope: { attack: 0.001, decay: 0.1 } }).toDestination();
-            clickSound.volume.value = -10;
-            const scrollSound = new Tone.NoiseSynth({ noise: { type: 'brown' }, envelope: { attack: 0.01, decay: 0.15, sustain: 0 } }).toDestination();
-            scrollSound.volume.value = -25;
             
-            function playHover() { if (!isMuted) hoverSound.triggerAttackRelease("G5", "32n"); }
-            function playClick() { if (!isMuted) clickSound.triggerAttackRelease("C4", "16n"); }
-            function playScroll() { if (!isMuted) scrollSound.triggerAttackRelease("16n"); }
+            
+            const hoverSound = new Tone.NoiseSynth({ noise: { type: "pink" }, envelope: { attack: 0.01, decay: 0.08, sustain: 0 } }).toDestination();
+            hoverSound.volume.value = -25;
+            const clickSound = new Tone.FMSynth({ modulationIndex: 12, harmonicity: 0.5, oscillator: { type: "sine" }, envelope: { attack: 0.001, decay: 0.1, sustain: 0 }, modulation: { type: "square" }, modulationEnvelope: { attack: 0.001, decay: 0.05, sustain: 0 } }).toDestination();
+            clickSound.volume.value = -10;
+            const clickNoise = new Tone.NoiseSynth({ noise: { type: "white" }, envelope: { attack: 0.001, decay: 0.05, sustain: 0.01, release: 0.05 } }).toDestination();
+            clickNoise.volume.value = -25;
+            const scrollRumble = new Tone.NoiseSynth({ noise: { type: "brown" }, envelope: { attack: 0.02, decay: 0.1, sustain: 0 } }).toDestination();
+            const scrollLFO = new Tone.LFO({ type: "sine", min: -40, max: -28, frequency: "8n" }).connect(scrollRumble.volume);
+            scrollRumble.volume.value = -Infinity; 
+            const rightClickSound = new Tone.Synth({ oscillator: { type: "sawtooth" }, envelope: { attack: 0.01, decay: 0.2, release: 0.1 } }).toDestination();
+            rightClickSound.volume.value = -15;
+            const highlightSound = new Tone.NoiseSynth({ noise: { type: "white" }, envelope: { attack: 0.01, sustain: 1, release: 0.05 } }).toDestination();
+            highlightSound.volume.value = -40; 
+            
+            function playHover() { if (!isMuted) hoverSound.triggerAttackRelease("16n"); }
+            function playClick() { if (!isMuted) { clickSound.triggerAttackRelease("C3", "32n"); clickNoise.triggerAttackRelease("64n"); } }
+            function playScroll() { if (!isMuted) scrollRumble.triggerAttackRelease("16n"); }
+            function playRightClick() { if (!isMuted) rightClickSound.triggerAttackRelease("C4", "16n"); }
+            function playHighlightStart() { if (!isMuted) highlightSound.triggerAttack(); }
+            function playHighlightStop() { highlightSound.triggerRelease(); }
+            
+            function startAudio() {
+                if (!soundsReady) {
+                    Tone.start(); soundsReady = true;
+                    if (!isMuted) { scrollLFO.start(); scrollRumble.volume.value = -28; }
+                }
+            }
 
-            // --- PRELOADER ---
             window.addEventListener('load', () => {
                 gsap.to('#preloader', { opacity: 0, duration: 0.8, onComplete: () => {
                     document.getElementById('preloader').style.display = 'none';
@@ -467,96 +465,15 @@
                 }});
             });
 
-            // --- SCROLL SOUND ---
             let lastScrollTop = 0;
             window.addEventListener('scroll', () => {
+                startAudio(); 
                 let st = window.pageYOffset || document.documentElement.scrollTop;
-                if (Math.abs(st - lastScrollTop) > 50) {
-                    playScroll();
-                    lastScrollTop = st <= 0 ? 0 : st;
-                }
+                if (Math.abs(st - lastScrollTop) > 50) { playScroll(); lastScrollTop = st <= 0 ? 0 : st; }
             }, false);
 
-            function initHeroScene() {
-                const heroScene = new THREE.Scene();
-                const heroCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-                heroCamera.position.set(0, 0, 10);
-                const canvas = document.getElementById('hero-canvas');
-                const heroRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-                heroRenderer.setSize(window.innerWidth, window.innerHeight);
-                heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-                const controls = new OrbitControls(heroCamera, heroRenderer.domElement);
-                controls.enableDamping = true;
-                controls.dampingFactor = 0.05;
-                controls.enableZoom = false;
-                controls.enablePan = false;
-                controls.minDistance = 5;
-                controls.maxDistance = 20;
-                controls.autoRotate = true;
-                controls.autoRotateSpeed = 0.4;
-
-                const ambientLight = new THREE.AmbientLight(0x404040, 2);
-                heroScene.add(ambientLight);
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-                directionalLight.position.set(5, 5, 5);
-                heroScene.add(directionalLight);
-                const pointLight = new THREE.PointLight(0xB00000, 5, 100);
-                pointLight.position.set(0, 0, 0);
-                heroScene.add(pointLight);
-
-                // Load 3D Cog Model
-                /*const loader = new GLTFLoader();
-                const modelUrl = 'https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/metal_gear_solid.glb'; 
-                
-                loader.load(
-                    modelUrl,
-                    (gltf) => {
-                        let cogModel = gltf.scene;
-                        cogModel.scale.set(1.5, 1.5, 1.5);
-                        cogModel.traverse((o) => {
-                            if (o.isMesh) {
-                                o.material = new THREE.MeshStandardMaterial({
-                                    color: 0x808080,
-                                    metalness: 0.9,
-                                    roughness: 0.4,
-                                });
-                            }
-                        });
-                        heroScene.add(cogModel);
-                    },
-                    undefined,
-                    (error) => {
-                        console.error('An error happened loading the cog model:', error, 'Loading fallback.');
-                        // Fallback: create a procedural cog
-                        const fallbackCog = createProceduralCog(12, 4, 0.5, 1, 0.3);
-                        fallbackCog.scale.set(0.8, 0.8, 0.8);
-                        heroScene.add(fallbackCog);
-                    }
-                );*/
-
-                const animate = () => {
-                    requestAnimationFrame(animate);
-                    const elapsedTime = clock.getElapsedTime();
-                    
-                    pointLight.intensity = 5 + Math.sin(elapsedTime * 2) * 2;
-
-                    heroCamera.position.x += (mouse.x * 1.5 - heroCamera.position.x) * 0.02;
-                    heroCamera.position.y += (mouse.y * 1.5 - heroCamera.position.y) * 0.02;
-                    heroCamera.lookAt(heroScene.position);
-                    controls.update();
-                    heroRenderer.render(heroScene, heroCamera);
-                };
-                animate();
-
-                window.addEventListener('resize', () => {
-                    heroCamera.aspect = window.innerWidth / window.innerHeight;
-                    heroCamera.updateProjectionMatrix();
-                    heroRenderer.setSize(window.innerWidth, window.innerHeight);
-                    heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                });
-            }
-
+            function initHeroScene() { }
+            
             function createProceduralCog(numTeeth, outerRadius, innerRadius, width, toothHeight) {
                 const shape = new THREE.Shape();
                 const angleStep = (Math.PI * 2) / numTeeth;
@@ -626,20 +543,9 @@
                 }).observe(aboutCanvas.parentElement);
             }
 
-            // --- GLOBAL MOUSE & SOUND LISTENERS ---
-            window.addEventListener('mousemove', e => {
-                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-            });
-            window.addEventListener('mousedown', () => {
-                if (!soundsReady) {
-                    Tone.start();
-                    soundsReady = true;
-                }
-                playClick();
-            });
+            window.addEventListener('mousemove', e => { mouse.x = (e.clientX / window.innerWidth) * 2 - 1; mouse.y = -(e.clientY / window.innerHeight) * 2 + 1; });
+            window.addEventListener('mousedown', () => { startAudio(); playClick(); });
             
-            // --- MUTE BUTTON ---
             const muteBtn = document.getElementById('mute-btn');
             const soundOnIcon = document.getElementById('sound-on-icon');
             const soundOffIcon = document.getElementById('sound-off-icon');
@@ -647,10 +553,9 @@
                 isMuted = !isMuted;
                 soundOnIcon.classList.toggle('hidden', isMuted);
                 soundOffIcon.classList.toggle('hidden', !isMuted);
-                if (!soundsReady) {
-                    Tone.start();
-                    soundsReady = true;
-                }
+                startAudio(); 
+                if (isMuted) { scrollLFO.stop(); scrollRumble.volume.value = -Infinity; } 
+                else { scrollLFO.start(); scrollRumble.volume.value = -28; }
             });
             
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -659,85 +564,87 @@
             mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
             mobileNavLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
-            // === YOUR DATA ===
+            
             const experienceData = [
-                { title: "Technical Intern", company: "Lady Bamford Charitable Trust (LBCT)", points: ["Developed a centralized database system to enhance collaborative workflows.", "Key contributions included schema design, CRUD functionality implementation, and data validation mechanisms.", "Helped establish collaboration between the organization and local government, gaining communication and management experience."] },
-                { title: "Full-Stack & AI Developer", company: "Personal Projects", points: ["Engineered multiple high-performance AI models for tasks like landslide detection, image segmentation, and emotion recognition.", "Built, containerized, and deployed full-stack web applications using Flask, Docker, and AWS.", "Implemented CI/CD pipelines and monitoring stacks (Prometheus, Grafana) for robust DevOps practices."] }
+                { title: "Acolyte Enginseer", company: "Lady Bamford Charitable Trust (LBCT)", points: ["Fabricated a centralised logis-repository system to enhance collective operational parameters.", "Primary contributions encompassed schematic architecture, implementation of Create-Read-Update-Delete (CRUD) functionality incantations, and data validation rites.", "Facilitated collaboration protocols between the organisation and local administratum strata, acquiring valuable vox-transmission and management experience."] }, 
+                { title: "Magos Fabricator & Cognis Adept", company: "Personal Forge-Shrine", points: ["Engineered multiple high-efficiency Cogitator Intelligences for assigned tasks including topographic instability augury, pict-feed segmentation, and bio-emotional pattern recognition.", "Constructed, containerised via STC-patterns (Docker), and deployed integrated noospheric data-altars utilising Flask protocols, hosted on Martian Empyrean Weave (AWS) instances.", "Implemented Continuous Integration/Continuous Deployment (CI/CD) litanies and monitoring stacks (Prometheus, Grafana) for robust Logis Operations adherence."] } 
             ];
             
             const projectsData = [
                  { 
-                    name: "Landslide Detection", 
+                    name: "Topographic Instability Augury", 
                     category: "ai", 
-                    desc: "Engineered a high-performance landslide susceptibility mapping framework using a novel machine learning pipeline to address high-dimensional geospatial data and severe class imbalance. Achieved 91.5% accuracy and deployed as an interactive web application using Gradio.", 
-                    tags: [{n: "AI/ML", c: "red"}, {n: "Python", c: "blue"}, {n: "Gradio", c: "green"}], 
+                    desc: "Engineered a high-performance predictive framework for lithospheric displacement susceptibility utilising a novel machine learning pipeline optimised for high-dimensional geospatial data streams and severe class strata imbalance. Achieved 91.5% predictive accuracy and deployed as an interactive data-visualization altar via Gradio protocols.", 
+                    tags: [{n: "Augury/Cognition", c: "red"}, {n: "Python-Script", c: "blue"}, {n: "Gradio-Interface", c: "green"}], 
                     link: "https://github.com/Monish21072004/Land-Slide-Detection-", 
                     image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/land_slide_detection_an_ai_mod.png" 
                  },
                 { 
-                    name: "Medical Image Segmentation", 
+                    name: "Biomedical Pict-Feed Segmentation", 
                     category: "ai", 
-                    desc: "Developed a deep learning framework for automated bone fracture segmentation using a U-Net generator enhanced with a self-attention bottleneck and a PatchGAN discriminator. Achieved over 200% improvement in IoU compared to a baseline U-Net on the FracAtlas dataset.", 
-                    tags: [{n: "GANs", c: "red"}, {n: "DeepLearning", c: "blue"}, {n: "U-Net", c: "green"}], 
+                    desc: "Developed a deep-cognition framework for automated osseous fracture segmentation utilising a U-Net generative architecture enhanced with a self-attention bottleneck and a PatchGAN discriminant engine. Achieved over 200% improvement in Intersection-over-Union (IoU) metrics compared to baseline U-Net configurations on the FracAtlas dataslate.", 
+                    tags: [{n: "GANs", c: "red"}, {n: "Deep-Cognition", c: "blue"}, {n: "U-Net Arch.", c: "green"}], 
                     link: "https://github.com/Monish21072004/Medical-Image-Segmentation-for-Bone-Fracture-using-GAN", 
                     image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/medical_image_segmentation_usi.png" 
                 },
                 { 
-                    name: "Dynamic Movie Search App", 
+                    name: "Dynamic Chrono-Pict Archive", 
                     category: "web", 
-                    desc: "Developed and deployed a fully containerized Movie Finder Web Application using Flask, Docker, Docker Compose, and Nginx, hosted on an AWS EC2 Instance. Integrated the TMDB API and implemented a Jenkins-driven CI/CD pipeline for zero-downtime deployments.", 
-                    tags: [{n: "Flask", c: "red"}, {n: "Docker", c: "blue"}, {n: "CI/CD", c: "green"}], 
+                    desc: "Fabricated and deployed a fully containerised Chrono-Pict Finder Noospheric Shrine utilising Flask, Docker STC-patterns, Docker Compose orchestration, and Nginx gateway protocols, hosted on an AWS EC2 computation instance. Integrated the Terran Moving Pict Database (TMDB) API and implemented a Jenkins-driven CI/CD pipeline ensuring zero-downtime deployment cycles.", 
+                    tags: [{n: "Flask", c: "red"}, {n: "Docker-STC", c: "blue"}, {n: "CI/CD-Litanies", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/MovieFinder", 
                     image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/Screenshot_216.png" 
                 },
                 { 
-                    name: "Containerized Monitoring", 
+                    name: "Containerised System Monitoring", 
                     category: "devops", 
-                    desc: "Set up a lightweight monitoring stack using Docker Compose (Prometheus, Grafana, cAdvisor). Transitioned to a cloud-native approach by deploying the stack into a Kubernetes cluster via Helm charts (kube-prometheus-stack) and designed dashboards for real-time observability.", 
-                    tags: [{n: "Docker", c: "red"}, {n: "Kubernetes", c: "blue"}, {n: "Prometheus", c: "green"}], 
+                    desc: "Established a lightweight system monitoring stack using Docker Compose orchestration (Prometheus, Grafana, cAdvisor). Transitioned to a cloud-native protocol via deployment into a Kubernetes cluster matrix using Helm chart invocations (kube-prometheus-stack) and designed data-visualization dashboards for real-time system observability.", 
+                    tags: [{n: "Docker-STC", c: "red"}, {n: "Kubernetes-Matrix", c: "blue"}, {n: "Prometheus-Augur", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/cd2", 
                     image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/grafana_qps_graph.png"
                 },
                 { 
-                    name: "Facial Emotion Recognition", 
+                    name: "Facial Emotion Pattern Recognition", 
                     category: "ai", 
-                    desc: "Developed a real-time facial emotion recognition system using Python, OpenCV, and TensorFlow. The model processes and classifies facial expressions from live video feeds, trained on benchmark emotion datasets to achieve high accuracy.", 
-                    tags: [{n: "AI/ML", c: "red"}, {n: "OpenCV", c: "blue"}, {n: "TensorFlow", c: "green"}], 
+                    desc: "Developed a real-time facial bio-signature recognition system employing Python-script, OpenCV optics, and TensorFlow cognition engines. The model processes and classifies physiognomic expressions from live pict-feeds, calibrated against benchmark emotional response dataslates to achieve high accuracy parameters.", 
+                    tags: [{n: "Augury/Cognition", c: "red"}, {n: "OpenCV-Optics", c: "blue"}, {n: "TensorFlow-Engine", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/Face-Emotion-Recognition", 
                     image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/face_emotion_recognition_an_ai.png"
                 },
                 { 
-                    name: "Code-to-API", 
+                    name: "Script-to-API Transmutation Engine", 
                     category: "web", 
-                    desc: "A backend tool that converts Python scripts into fully functional APIs, streamlining the process of deploying machine learning models and other code as web services.", 
-                    tags: [{n: "Python", c: "red"}, {n: "API", c: "blue"}, {n: "Backend", c: "green"}], 
+                    desc: "A backend cogitator that transmutes Python scripts into fully operational Application Programming Interfaces (APIs), streamlining the deployment protocols for machine learning intelligences and other sacred code as noospheric services.", 
+                    tags: [{n: "Python-Script", c: "red"}, {n: "API-Protocol", c: "blue"}, {n: "Backend-Cogitator", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/Code-to-Api", 
                     image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/api_forge__no_code_backend_a_n.png"
                 }
             ];
 
             const technologiesData = [
-                { name: "Python", desc: "My primary language for AI/ML, backend services, and scripting.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
-                { name: "JavaScript", desc: "Used for frontend interactivity and building dynamic web applications.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" },
-                { name: "TensorFlow", desc: "Experience in building and training deep learning models for various tasks.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
-                { name: "Deep Learning", desc: "Proficient in creating neural networks for research and production environments.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/pytorch/pytorch-original.svg" }, 
-                { name: "OpenCV", desc: "Extensive use in computer vision projects for image and video analysis.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" },
-                { name: "SQL", desc: "Strong skills in database design, querying, and management.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg" },
-                { name: "DevOps", desc: "Implementing CI/CD pipelines, containerization, and monitoring.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" },
-                { name: "Docker", desc: "Containerizing applications for consistent development and deployment.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" },
-                { name: "AWS", desc: "Familiar with deploying and managing applications on AWS.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-                { name: "Kubernetes", desc: "Orchestrating containerized applications at scale.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" },
-                { name: "Git", desc: "Proficient in version control for collaborative and personal projects.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" },
-                { name: "HTML5 & CSS3", desc: "Crafting modern, responsive, and visually appealing user interfaces.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" },
+                
+                { name: "Python", desc: "Primary sacred script utilised for Cogitator Intelligences, backend service protocols, and automation litanies.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
+                { name: "JavaScript", desc: "Employed for frontend interactivity runes and constructing dynamic noospheric shrine interfaces.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" },
+                { name: "TensorFlow", desc: "Proficiency in constructing and calibrating deep cognition engines for diverse operational parameters.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
+                { name: "Deep Learning", desc: "Adept in the fabrication of neural network matrices for research initiatives and production environments.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/pytorch/pytorch-original.svg" }, 
+                { name: "OpenCV", desc: "Extensive application in machine-vision projects for pict-feed and chrono-stream analysis.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" },
+                { name: "SQL", desc: "Strong augmetics in logis-repository architecture, query incantations, and data-stream management.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg" },
+                { name: "DevOps", desc: "Implementation of CI/CD deployment litanies, STC-pattern containerisation, and system monitoring augurs.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" },
+                { name: "Docker", desc: "Containerising applications via Standard Template Construct patterns for consistent fabrication and deployment.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" },
+                { name: "AWS", desc: "Familiarity with deploying and managing applications within the Martian Empyrean Weave.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
+                { name: "Kubernetes", desc: "Orchestrating containerised applications within scalable cluster matrices.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" },
+                { name: "Git", desc: "Proficient in version control protocols for collaborative and individual logis development.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" },
+                { name: "HTML5 & CSS3", desc: "Crafting modern, responsive, and visually compliant user interface structures according to sanctioned aesthetics.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" },
             ];
 
-            // --- RENDER FUNCTIONS ---
+            
             const experienceContainer = document.getElementById('experience-container');
             experienceData.forEach((exp, index) => {
                 const isLeft = index % 2 === 0;
                 const container = document.createElement('div');
                 container.className = `timeline-container ${isLeft ? 'left' : 'right'} gsap-reveal`;
-                container.innerHTML = `<div class="timeline-content"><h3 class="text-white text-2xl font-bold font-orbitron">${exp.title}</h3><p class="text-secondary-text text-lg font-semibold m-0">${exp.company}</p><ul class="mt-4 list-disc ml-5 space-y-2">${exp.points.map(p => `<li class="text-sm">${p}</li>`).join('')}</ul></div>`;
+                
+                container.innerHTML = `<div class="timeline-content"><h3 class="text-white text-2xl font-bold font-orbitron">${exp.title}</h3><p class="text-secondary-text text-lg font-semibold m-0">${exp.company}</p><ul class="mt-4 list-disc ml-5 space-y-2">${exp.points.map(p => `<li class="text-sm tracking-wide">${p}</li>`).join('')}</ul></div>`;
                 experienceContainer.appendChild(container);
             });
 
@@ -750,7 +657,8 @@
                     const card = document.createElement('div');
                     card.className = 'project-card p-5 rounded-2xl w-full';
                     card.dataset.index = originalIndex;
-                    card.innerHTML = `<div class="relative w-full h-[230px]"><img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-2xl" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/fallback.png';"/></div><div class="mt-5"><h3 class="text-white font-bold text-2xl font-orbitron">${p.name}</h3><p class="mt-2 text-sm text-gray-400">${p.desc.substring(0, 100)}...</p></div><div class="mt-4 flex gap-2">${p.tags.map(t => `<p class="tag ${t.c}-text-gradient">#${t.n}</p>`).join('')}</div>`;
+                    
+                    card.innerHTML = `<div class="relative w-full h-[230px]"><img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-2xl" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/fallback.png';"/></div><div class="mt-5"><h3 class="text-white font-bold text-2xl font-orbitron">${p.name}</h3><p class="mt-2 text-sm text-gray-400 tracking-wide">${p.desc.substring(0, 110)}...</p></div><div class="mt-4 flex gap-2">${p.tags.map(t => `<p class="tag ${t.c}-text-gradient">#${t.n}</p>`).join('')}</div>`;
                     projectsContainer.appendChild(card);
                 });
                 gsap.fromTo(projectsContainer.children, { y: 50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power3.out", stagger: 0.1 });
@@ -776,7 +684,7 @@
                 button.addEventListener('mouseenter', playHover);
             });
 
-            // --- MODAL LOGIC ---
+            
             const projectModal = document.getElementById('project-modal');
             const projectModalCloseBtn = projectModal.querySelector('.modal-close-btn');
             projectsContainer.addEventListener('click', (e) => {
@@ -786,7 +694,7 @@
                     const project = projectsData[card.dataset.index];
                     document.getElementById('modal-project-image').src = project.image;
                     document.getElementById('modal-project-title').innerText = project.name;
-                    document.getElementById('modal-project-desc').innerText = project.desc;
+                    document.getElementById('modal-project-desc').innerText = project.desc; 
                     document.getElementById('modal-project-link').href = project.link;
                     
                     const demoLink = document.getElementById('modal-project-demo-link');
@@ -813,7 +721,7 @@
                     const tech = technologiesData[card.dataset.index];
                     document.getElementById('modal-tech-image').src = tech.icon;
                     document.getElementById('modal-tech-title').innerText = tech.name;
-                    document.getElementById('modal-tech-desc').innerText = tech.desc;
+                    document.getElementById('modal-tech-desc').innerText = tech.desc; 
                     techModal.classList.add('active');
                     document.body.classList.add('modal-open');
                 }
@@ -825,7 +733,7 @@
             techModalCloseBtn.addEventListener('click', () => closeModal(techModal));
             techModal.addEventListener('click', (e) => { if (e.target === techModal) closeModal(techModal); });
             
-            // --- GSAP ANIMATIONS ---
+            
             gsap.utils.toArray('.gsap-reveal').forEach(el => {
                 gsap.fromTo(el, {y: 50, autoAlpha: 0}, { y: 0, autoAlpha: 1, duration: 1.2, ease: "power3.out", stagger: 0.1, scrollTrigger: { trigger: el, start: "top 90%" } });
             });
@@ -860,7 +768,7 @@
                 link.addEventListener('mouseenter', playHover);
             });
 
-            // --- GITHUB API FETCH ---
+            
             async function getGitHubStats() {
                 try {
                     const userResponse = await fetch('https://api.github.com/users/RaghavTheMan'); 
@@ -872,17 +780,28 @@
                     const totalStars = reposData.reduce((acc, repo) => acc + repo.stargazers_count, 0);
                     document.getElementById('star-count').innerText = totalStars;
                 } catch (error) {
-                    console.error("Error fetching GitHub stats:", error);
+                    console.error("Error fetching GitHub logis-data:", error); 
                     document.getElementById('repo-count').innerText = 'N/A';
                     document.getElementById('star-count').innerText = 'N/A';
                 }
             }
 
-            // --- INITIALIZE ---
+            
             initHeroScene();
             initAboutScene();
             renderProjects(); 
             getGitHubStats();
+
+            
+            window.addEventListener('contextmenu', () => { startAudio(); playRightClick(); });
+            let isHighlighting = false;
+            document.addEventListener('selectionchange', () => {
+                startAudio();
+                const selection = window.getSelection();
+                if (!selection.isCollapsed && !isHighlighting) { isHighlighting = true; playHighlightStart(); }
+            });
+            window.addEventListener('mouseup', () => { if (isHighlighting) { isHighlighting = false; playHighlightStop(); } });
+
         });
     </script>
 </body>
