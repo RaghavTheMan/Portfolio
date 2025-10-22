@@ -35,7 +35,7 @@
             font-family: 'Roboto Mono', monospace;
             background-color: var(--dark-metal);
             color: var(--off-white);
-            /* === FINAL STEP: Upload your background image to GitHub and paste the RAW URL here === */
+            /* Background image path is now correctly set */
             background-image: 
                 linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)),
                 url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/axun66htwmb51.webp'); 
@@ -468,7 +468,7 @@
 
                 // Load 3D Cog Model
                 const loader = new GLTFLoader();
-                const modelUrl = 'https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/gear.glb'; 
+                const modelUrl = 'https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/metal_gear_solid.glb'; 
                 
                 loader.load(
                     modelUrl,
@@ -714,7 +714,7 @@
                     const card = document.createElement('div');
                     card.className = 'project-card p-5 rounded-2xl w-full';
                     card.dataset.index = originalIndex;
-                    card.innerHTML = `<div class="relative w-full h-[230px]"><img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-2xl" onerror="this.onerror=null;this.src='https://i.imgur.com/LhBGSyq.jpeg';"/></div><div class="mt-5"><h3 class="text-white font-bold text-2xl font-orbitron">${p.name}</h3><p class="mt-2 text-sm text-gray-400">${p.desc.substring(0, 100)}...</p></div><div class="mt-4 flex gap-2">${p.tags.map(t => `<p class="tag ${t.c}-text-gradient">#${t.n}</p>`).join('')}</div>`;
+                    card.innerHTML = `<div class="relative w-full h-[230px]"><img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-2xl" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/fallback.png';"/></div><div class="mt-5"><h3 class="text-white font-bold text-2xl font-orbitron">${p.name}</h3><p class="mt-2 text-sm text-gray-400">${p.desc.substring(0, 100)}...</p></div><div class="mt-4 flex gap-2">${p.tags.map(t => `<p class="tag ${t.c}-text-gradient">#${t.n}</p>`).join('')}</div>`;
                     projectsContainer.appendChild(card);
                 });
                 gsap.fromTo(projectsContainer.children, { y: 50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power3.out", stagger: 0.1 });
