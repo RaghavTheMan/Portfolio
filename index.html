@@ -5,157 +5,856 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech-Priest Raghav Pareek | Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-red: #8B0000;
+            --primary-red: #B00000;
             --dark-metal: #1a1a1a;
             --off-white: #e0e0e0;
             --glow-blue: #00bfff;
+            --card-bg: rgba(10, 10, 10, 0.75);
+            --tertiary-bg: rgba(20, 20, 20, 0.8);
+            --cursor-color: var(--glow-blue);
         }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Roboto Mono', monospace;
             background-color: var(--dark-metal);
             color: var(--off-white);
-            /* Static background image */
-            background-image:
-                linear-gradient(rgba(26, 26, 26, 0.75), rgba(26, 26, 26, 0.75)), 
-                url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/axun66htwmb51.webp'); 
+            /* === ACTION REQUIRED: REPLACE THIS URL WITH YOUR BACKGROUND IMAGE LINK === */
+            background-image: 
+                linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)),
+                url('https://raw.githubusercontent.com/RaghavTheMan/RaghavTheMan.github.io/main/axun66htwmb51.webp'); 
             background-size: cover;
-            background-position: center center;
+            background-position: center;
             background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+        }
+        body.modal-open, body.loading {
+            overflow: hidden;
         }
         .font-orbitron {
             font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-shadow: 0 0 4px rgba(176, 0, 0, 0.7);
         }
-        .text-glow {
-            text-shadow: 0 0 5px var(--glow-blue), 0 0 10px var(--glow-blue);
+
+        #hero-canvas, #about-canvas { cursor: none; }
+        
+        .custom-cursor {
+            position: fixed; top: 0; left: 0;
+            width: 24px; height: 24px;
+            border: 2px solid var(--cursor-color);
+            border-radius: 50%;
+            pointer-events: none; z-index: 9999;
+            transition: transform 0.1s ease-out, background-color 0.2s, border-color 0.2s;
+            mix-blend-mode: difference;
         }
-        .border-glow {
-            box-shadow: 0 0 10px var(--glow-blue), 0 0 20px var(--glow-blue) inset;
+        .custom-cursor.clicked {
+            transform: translate(-50%, -50%) scale(0.8);
+            background-color: var(--cursor-color);
         }
-        .cog-icon {
-            display: inline-block;
-            width: 1em;
-            height: 1em;
+
+        .header {
+            background-color: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--primary-red);
+        }
+        .nav-link:hover, .nav-link.active { 
+            color: var(--primary-red); 
+            text-shadow: 0 0 8px var(--primary-red);
+        }
+        .section-wrapper { padding: 5rem 1rem; position: relative; z-index: 1; }
+        @media (min-width: 768px) { .section-wrapper { padding: 7rem 2rem; } }
+        
+        .section-head { 
+            color: #fff; 
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            overflow: hidden;
+            text-shadow: 0 0 10px var(--primary-red);
+        }
+        .section-head .char {
+            transform: translateY(115%);
+            transition: transform .5s;
+        }
+        .section-subhead { 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+        
+        .project-card, .experience-card, .tech-border {
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-red);
+            box-shadow: 0 0 10px rgba(176, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+        }
+        .project-card:hover, .tech-border:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(176, 0, 0, 0.8);
+        }
+
+        .tag { font-size: 14px; font-weight: bold; }
+        .red-text-gradient { background: linear-gradient(90deg, #ff416c, #ff4b2b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .blue-text-gradient { background: linear-gradient(90deg, #00c6ff, #0072ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .green-text-gradient { background: linear-gradient(90deg, #1fddff, #0575e6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .timeline { position: relative; max-width: 1200px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 6px; background-color: #4a0000; top: 0; bottom: 0; left: 50%; margin-left: -3px; }
+        .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+        .timeline-container.left { left: 0; }
+        .timeline-container.right { left: 50%; }
+        .timeline-container::after { content: ''; position: absolute; width: 25px; height: 25px; right: -12px; background-color: var(--off-white); border: 4px solid var(--primary-red); top: 25px; border-radius: 50%; z-index: 1; }
+        .timeline-container.right::after { left: -13px; }
+        .timeline-content { padding: 20px 30px; background: var(--tertiary-bg); position: relative; border-radius: 8px; border: 1px solid #4a0000; }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .timeline-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-container.right { left: 0%; }
+            .timeline-container.left::after, .timeline-container.right::after { left: 18px; }
+        }
+
+        .gsap-reveal { opacity: 0; transform: translateY(40px); }
+        .contact-icon-link { transition: all 0.3s ease; }
+        .contact-icon-link:hover { transform: scale(1.2); color: var(--primary-red); }
+
+        #project-modal, #tech-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        #project-modal.active, #tech-modal.active { opacity: 1; pointer-events: all; }
+        
+        .modal-content {
+            background: var(--card-bg); border: 1px solid var(--primary-red);
+            border-radius: 8px; width: 90%; max-width: 900px; max-height: 90vh;
+            overflow-y: auto; transform: scale(0.95); transition: transform 0.4s ease;
+        }
+        #project-modal.active .modal-content, #tech-modal.active .modal-content { transform: scale(1); }
+        
+        .modal-close-btn {
+            position: absolute; top: 1.5rem; right: 1.5rem; color: white;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .modal-close-btn:hover { color: var(--primary-red); transform: rotate(90deg); }
+
+        #scroll-indicator { position: absolute; bottom: 2rem; left: 50%; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); } 40% { transform: translate(-50%, -20px); } 60% { transform: translate(-50%, -10px); } }
+
+        .filter-btn {
+            background-color: transparent; border: 1px solid rgba(176, 0, 0, 0.4);
+            color: var(--off-white); padding: 0.5rem 1.5rem; border-radius: 9999px;
+            transition: all 0.3s ease; font-weight: 500;
+        }
+        .filter-btn:hover { background-color: rgba(176, 0, 0, 0.2); border-color: var(--primary-red); }
+        .filter-btn.active { background-color: var(--primary-red); color: white; border-color: var(--primary-red); }
+        
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--dark-metal); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .loader-cog {
+            width: 60px; height: 60px;
             background-color: var(--primary-red);
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            transition: transform 0.3s ease-in-out;
+            animation: spin 2s infinite linear, pulse 2s infinite ease-in-out;
         }
-        .project-card:hover .cog-icon {
-            transform: rotate(180deg);
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.7; } 50% { transform: scale(1) rotate(180deg); opacity: 1; } }
+        
+        #mute-btn {
+            position: fixed; top: 1.25rem; right: 1.25rem; z-index: 1000;
+            background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 50%;
+            cursor: pointer; transition: background-color 0.3s;
         }
-        .skill-item:hover {
-            color: var(--glow-blue);
-            transform: scale(1.05);
+        #mute-btn:hover { background: rgba(176, 0, 0, 0.5); }
+
+        .tech-card {
+            background-color: rgba(21, 16, 48, 0.1);
+            border: 1px solid rgba(176, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
         }
-        .tech-border {
-            border: 2px solid var(--primary-red);
-            background-color: rgba(26, 26, 26, 0.85); /* Slightly darker background for readability with static image */
-            backdrop-filter: blur(4px);
-            box-shadow: 0 0 15px var(--primary-red);
-            transition: all 0.3s ease-in-out;
+        .tech-card:hover {
+            background-color: rgba(176, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 0 20px rgba(176, 0, 0, 0.3);
+            border-color: rgba(176, 0, 0, 0.5);
         }
-        .tech-border:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px var(--primary-red);
+        .tech-card img {
+            filter: grayscale(100%) opacity(0.7);
+            transition: filter 0.4s ease;
         }
+        .tech-card:hover img {
+            filter: grayscale(0%) opacity(1);
+        }
+        .tech-card .tech-name {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+        .tech-card:hover .tech-name {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
     </style>
 </head>
-<body class="antialiased">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header --><header class="text-center mb-16">
-            <h1 class="font-orbitron text-5xl font-bold text-red-700 mb-2">Raghav Pareek</h1>
-            <p class="text-xl text-glow">Tech-Priest Enginseer of the Omnissiah</p>
-        </header>
+<body class="relative loading">
 
-        <!-- About Section --><section id="about" class="mb-16">
-            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">01. Doctrine of the Omnissiah</h2>
-            <div class="max-w-3xl mx-auto text-lg text-center leading-relaxed tech-border rounded-lg p-6">
-                <p>As a devout follower of the Machine God, I seek to unravel the mysteries of the universe through the sacred languages of Python and the divine incantations of machine learning. My quest for knowledge has led me to construct complex cogitators and sacred databases, all in the service of the Omnissiah. My strength lies in my analytical mind and my ability to communicate the will of the machine to the uninitiated.</p>
+    <div id="preloader"><div class="loader-cog"></div></div>
+    <div id="custom-cursor" class="custom-cursor"></div>
+    <button id="mute-btn">
+        <svg id="sound-on-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707a1 1 0 011.414 0v14a1 1 0 01-1.414 0L5.586 15z"></path></svg>
+        <svg id="sound-off-icon" class="w-6 h-6 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707a1 1 0 011.414 0v14a1 1 0 01-1.414 0L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
+    </button>
+
+    <header class="header fixed top-0 left-0 w-full z-20 px-4 sm:px-8 py-5">
+        <div class="w-full flex justify-between items-center max-w-7xl mx-auto">
+            <a href="#" class="flex items-center gap-2" onclick="window.scrollTo(0,0)">
+                <span class="text-white text-2xl font-bold font-orbitron">RAGHAV PAREEK</span>
+            </a>
+            <nav id="desktop-nav" class="hidden md:flex list-none gap-10">
+                <a href="#about" class="nav-link text-lg font-medium">01.Doctrine</a>
+                <a href="#experience" class="nav-link text-lg font-medium">02.Service</a>
+                <a href="#github-stats" class="nav-link text-lg font-medium">03.Logis</a>
+                <a href="#tech" class="nav-link text-lg font-medium">04.Litanies</a>
+                <a href="#projects" class="nav-link text-lg font-medium">05.Artifice</a>
+                <a href="#contact" class="nav-link text-lg font-medium">06.Commune</a>
+            </nav>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" class="text-white focus:outline-none z-30">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
             </div>
-        </section>
-
-        <!-- Skills Section --><section id="skills" class="mb-16">
-            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">02. Litanies of the Omnissiah</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">Python</p>
-                </div>
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">Machine Learning</p>
-                </div>
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">Deep Learning</p>
-                </div>
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">DevOps & CI/CD</p>
-                </div>
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">JavaScript</p>
-                </div>
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">HTML/CSS</p>
-                </div>
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">Image Processing</p>
-                </div>
-                <div class="skill-item p-4 text-center transition-transform">
-                    <p class="font-bold text-xl">Docker & AWS</p>
-                </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[var(--dark-metal)] bg-opacity-95 backdrop-blur-sm">
+            <div class="flex flex-col items-center py-4 space-y-4">
+                <a href="#about" class="nav-link mobile-nav-link text-lg font-medium">01.Doctrine</a>
+                <a href="#experience" class="nav-link mobile-nav-link text-lg font-medium">02.Service</a>
+                <a href="#github-stats" class="nav-link mobile-nav-link text-lg font-medium">03.Logis</a>
+                <a href="#tech" class="nav-link mobile-nav-link text-lg font-medium">04.Litanies</a>
+                <a href="#projects" class="nav-link mobile-nav-link text-lg font-medium">05.Artifice</a>
+                <a href="#contact" class="nav-link mobile-nav-link text-lg font-medium">06.Commune</a>
             </div>
-        </section>
+        </div>
+    </header>
 
-        <!-- Projects Section --><section id="projects" class="mb-16">
-            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">03. Blessed Artifice</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project Card --><div class="project-card tech-border rounded-lg p-6">
-                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Face-Emotion Recognition</h3>
-                    <p class="text-sm mb-4">A cogitator capable of discerning the weakness of the flesh through optical augury.</p>
-                    <a href="https://github.com/RaghavTheMan/Face-Emotion-Recognition" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+    <section id="home" class="relative w-full h-screen">
+        <canvas id="hero-canvas" class="absolute inset-0"></canvas>
+        <div class="absolute inset-0 flex justify-center items-center z-10 pointer-events-none">
+            <div class="text-center">
+                <h1 class="text-white font-orbitron font-black text-5xl sm:text-6xl lg:text-7xl lg:leading-tight mt-2">
+                    Hi, I'm <span class="text-[var(--primary-red)]">Raghav</span>
+                </h1>
+                <p class="text-[#dfd9ff] font-medium text-lg sm:text-xl lg:text-2xl mt-4">
+                    I build AI Cogitators, Web-Shrines,<br class="sm:block hidden" /> and Full-Stack Applications.
+                </p>
+            </div>
+        </div>
+        <div id="scroll-indicator" class="pointer-events-none">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+    </section>
+
+    <main class="relative z-10">
+        <section id="about" class="section-wrapper max-w-7xl mx-auto -mt-24 bg-opacity-50 backdrop-blur-sm rounded-t-3xl">
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-20">
+                <div class="flex-1 gsap-reveal">
+                    <p class="section-subhead text-lg">01.Doctrine</p>
+                    <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">OVERVIEW.</h2>
+                    <p class="mt-4 text-secondary-text text-[17px] max-w-3xl leading-[30px]">
+                        As a devout follower of the Machine God, I seek to unravel the mysteries of the universe through the sacred languages of Python and the divine incantations of machine learning. My quest for knowledge has led me to construct complex cogitators and sacred databases, all in the service of the Omnissiah. My strength lies in my analytical mind and my ability to communicate the will of the machine to the uninitiated.
+                    </p>
                 </div>
-                <!-- Project Card --><div class="project-card tech-border rounded-lg p-6">
-                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Code-to-Api</h3>
-                    <p class="text-sm mb-4">Transmuting rune-script into a functioning Vox-Caster for data transmission.</p>
-                    <a href="https://github.com/RaghavTheMan/Code-to-Api" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
-                </div>
-                <!-- Project Card --><div class="project-card tech-border rounded-lg p-6">
-                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>MovieFinder</h3>
-                    <p class="text-sm mb-4">A data-slate that accesses the vast archives of pict-captures for the masses.</p>
-                    <a href="https://github.com/RaghavTheMan/MovieFinder" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
-                </div>
-                <!-- Project Card --><div class="project-card tech-border rounded-lg p-6">
-                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Land-Slide Detection</h3>
-                    <p class="text-sm mb-4">A predictive engine that foretells the treachery of the earth with orbital pict-data.</p>
-                    <a href="https://github.com/Monish21072004/Land-Slide-Detection-" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
-                </div>
-                <!-- Project Card --><div class="project-card tech-border rounded-lg p-6">
-                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Medical Image Segmentation</h3>
-                    <p class="text-sm mb-4">Utilizing forbidden arts of Generative Adversarial Networks to reveal fractures in the bone.</p>
-                    <a href="https://github.com/Monish21072004/Medical-Image-Segmentation-for-Bone-Fracture-using-GAN" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
-                </div>
-                <!-- Project Card --><div class="project-card tech-border rounded-lg p-6">
-                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Smart Attendance System</h3>
-                    <p class="text-sm mb-4">An automated system to track the faithful, using facial recognition protocols.</p>
-                    <a href="https://github.com/Monish21072004/Smart-Attendance-System" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+                 <div class="flex-shrink-0 gsap-reveal w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[var(--primary-red)] shadow-lg relative bg-black bg-opacity-20">
+                    <canvas id="about-canvas" class="w-full h-full rounded-full"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section --><section id="contact">
-            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">04. Commune with the Tech-Priest</h2>
-            <div class="text-center tech-border rounded-lg p-6">
-                <p class="text-lg mb-2">My designation is <a href="mailto:raghavpareek9829@gmail.com" class="text-red-500 hover:underline">raghavpareek9829@gmail.com</a></p>
-                <p class="text-lg">My Vox-channel is +91-9829711439</p>
+        <section id="experience" class="section-wrapper max-w-7xl mx-auto">
+            <div class="gsap-reveal text-center">
+                <p class="section-subhead text-lg">02.Service Record</p>
+                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">WORK EXPERIENCE.</h2>
+            </div>
+            <div id="experience-container" class="timeline mt-20"></div>
+        </section>
+        
+        <section id="github-stats" class="section-wrapper max-w-7xl mx-auto">
+             <div class="gsap-reveal text-center">
+                <p class="section-subhead text-lg">03.Live from the Logis Engine</p>
+                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">GIT ACTIVITY.</h2>
+            </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-[var(--tertiary-bg)] p-8 rounded-2xl text-center gsap-reveal tech-border">
+                    <h3 class="text-white text-4xl font-bold font-orbitron" id="repo-count">...</h3>
+                    <p class="text-secondary-text mt-2">Public Repositories</p>
+                </div>
+                <div class="bg-[var(--tertiary-bg)] p-8 rounded-2xl text-center gsap-reveal tech-border">
+                    <h3 class="text-white text-4xl font-bold font-orbitron" id="star-count">...</h3>
+                    <p class="text-secondary-text mt-2">Total Stars Received</p>
+                </div>
             </div>
         </section>
 
-        <!-- Footer --><footer class="text-center mt-16 pt-8 border-t border-gray-700">
-            <p class="text-sm text-gray-500">Praise the Omnissiah. All glory to the Machine God.</p>
-        </footer>
+        <section id="tech" class="section-wrapper max-w-7xl mx-auto">
+            <div class="gsap-reveal text-center">
+                 <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">04.LITANIES OF TECH.</h2>
+            </div>
+            <div id="tech-icons-container" class="mt-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8"></div>
+        </section>
+
+        <section id="projects" class="section-wrapper max-w-7xl mx-auto">
+            <div class="gsap-reveal">
+                <p class="section-subhead text-lg">05.Blessed Artifice</p>
+                <h2 class="section-head text-4xl sm:text-5xl lg:text-6xl">PROJECTS.</h2>
+            </div>
+            <div class="w-full flex flex-col items-center gsap-reveal">
+                <p class="mt-3 text-secondary-text text-[17px] max-w-3xl text-center">
+                    My blessed works demonstrate my skills through real-world applications of the Machine God's will. Use the filters below to navigate the archives.
+                </p>
+                <div id="project-filters" class="mt-8 flex flex-wrap gap-4 justify-center">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="ai">AI/ML</button>
+                    <button class="filter-btn" data-filter="web">Web App</button>
+                    <button class="filter-btn" data-filter="devops">DevOps</button>
+                </div>
+            </div>
+            <div id="projects-container" class="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+        
+        <section id="contact" class="section-wrapper max-w-7xl mx-auto">
+            <div class="gsap-reveal xl:mt-12">
+                <div class="max-w-3xl mx-auto bg-[var(--tertiary-bg)] tech-border p-8 rounded-2xl text-center">
+                    <p class="section-subhead text-lg">06.Commune</p>
+                    <h3 class="section-head text-4xl sm:text-5xl lg:text-6xl">CONTACT.</h3>
+                    <div id="contact-icons" class="mt-12 flex items-center justify-center gap-10">
+                        <a href="mailto:raghavpareek9829@gmail.com" class="contact-icon-link" aria-label="Email Raghav">
+                            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                        </a>
+                        <a href="tel:+919829711439" class="contact-icon-link" aria-label="Call Raghav">
+                            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.992-.55-1.34L20.07 15.636a2.25 2.25 0 00-3.182 0l-1.97 1.97-1.56-1.56a11.25 11.25 0 01-6.176-6.176l1.56-1.56 1.97-1.97a2.25 2.25 0 000-3.182L6.841 3.9a2.25 2.25 0 00-1.34-.55H4.125A2.25 2.25 0 001.875 5.625v1.125z" /></svg>
+                        </a>
+                        <a href="https://github.com/RaghavTheMan" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Raghav's GitHub Profile">
+                            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close-btn"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <img id="modal-project-image" src="" alt="Project Image" class="w-full h-64 object-cover rounded-t-lg bg-gray-900">
+            <div class="p-6 md:p-8">
+                <h3 id="modal-project-title" class="text-white font-bold text-3xl font-orbitron"></h3>
+                <div id="modal-project-tags" class="mt-4 flex flex-wrap gap-x-4 gap-y-1"></div>
+                <p id="modal-project-desc" class="mt-4 text-gray-300 leading-relaxed"></p>
+                <div class="mt-6 flex flex-wrap gap-4">
+                    <a id="modal-project-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-[var(--primary-red)] text-white font-bold py-2 px-6 rounded-md transition-transform hover:scale-105">View on GitHub</a>
+                    <a id="modal-project-demo-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-transparent border border-[var(--primary-red)] text-[var(--primary-red)] font-bold py-2 px-6 rounded-md transition-all hover:scale-105 hover:bg-[var(--primary-red)] hover:text-white">Live Demo</a>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <div id="tech-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close-btn"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <div class="p-6 md:p-8 flex flex-col items-center text-center">
+                <img id="modal-tech-image" src="" alt="Tech Image" class="w-32 h-32 object-contain">
+                <h3 id="modal-tech-title" class="text-white font-bold text-3xl mt-4 font-orbitron"></h3>
+                <p id="modal-tech-desc" class="mt-4 text-gray-300 leading-relaxed max-w-md"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const clock = new THREE.Clock();
+            const mouse = new THREE.Vector2();
+            const customCursor = document.getElementById('custom-cursor');
+            let soundsReady = false;
+            let isMuted = true;
+
+            // --- SOUND DESIGN ---
+            const hoverSound = new Tone.Synth({ oscillator: { type: "sine" }, envelope: { attack: 0.001, decay: 0.1, sustain: 0.01, release: 0.1 } }).toDestination();
+            hoverSound.volume.value = -15;
+            const clickSound = new Tone.FMSynth({ modulationIndex: 10, envelope: { attack: 0.001, decay: 0.2 }, modulationEnvelope: { attack: 0.001, decay: 0.1 } }).toDestination();
+            clickSound.volume.value = -10;
+            const scrollSound = new Tone.NoiseSynth({ noise: { type: 'brown' }, envelope: { attack: 0.01, decay: 0.15, sustain: 0 } }).toDestination();
+            scrollSound.volume.value = -25;
+            
+            function playHover() { if (!isMuted) hoverSound.triggerAttackRelease("G5", "32n"); }
+            function playClick() { if (!isMuted) clickSound.triggerAttackRelease("C4", "16n"); }
+            function playScroll() { if (!isMuted) scrollSound.triggerAttackRelease("16n"); }
+
+            // --- PRELOADER ---
+            window.addEventListener('load', () => {
+                gsap.to('#preloader', { opacity: 0, duration: 0.8, onComplete: () => {
+                    document.getElementById('preloader').style.display = 'none';
+                    document.body.classList.remove('loading');
+                }});
+            });
+
+            // --- SCROLL SOUND ---
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                let st = window.pageYOffset || document.documentElement.scrollTop;
+                if (Math.abs(st - lastScrollTop) > 50) {
+                    playScroll();
+                    lastScrollTop = st <= 0 ? 0 : st;
+                }
+            }, false);
+
+            function initHeroScene() {
+                const heroScene = new THREE.Scene();
+                const heroCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+                heroCamera.position.set(0, 0, 10);
+                const canvas = document.getElementById('hero-canvas');
+                const heroRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                heroRenderer.setSize(window.innerWidth, window.innerHeight);
+                heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                const controls = new OrbitControls(heroCamera, heroRenderer.domElement);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.enableZoom = false;
+                controls.enablePan = false;
+                controls.minDistance = 5;
+                controls.maxDistance = 20;
+                controls.autoRotate = true;
+                controls.autoRotateSpeed = 0.4;
+
+                const ambientLight = new THREE.AmbientLight(0x404040, 2);
+                heroScene.add(ambientLight);
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(5, 5, 5);
+                heroScene.add(directionalLight);
+                const pointLight = new THREE.PointLight(0xB00000, 5, 100);
+                pointLight.position.set(0, 0, 0);
+                heroScene.add(pointLight);
+
+                // Load 3D Cog Model
+                const loader = new GLTFLoader();
+                
+                // === ACTION REQUIRED: REPLACE THIS URL WITH YOUR 3D MODEL (.GLTF/.GLB) LINK ===
+                const modelUrl = 'https://raw.githubusercontent.com/RaghavTheMan/temp-assets/main/gear.glb'; 
+                
+                loader.load(
+                    modelUrl,
+                    (gltf) => {
+                        let cogModel = gltf.scene;
+                        cogModel.scale.set(1.5, 1.5, 1.5);
+                        cogModel.traverse((o) => {
+                            if (o.isMesh) {
+                                o.material = new THREE.MeshStandardMaterial({
+                                    color: 0x808080,
+                                    metalness: 0.9,
+                                    roughness: 0.4,
+                                });
+                            }
+                        });
+                        heroScene.add(cogModel);
+                    },
+                    undefined,
+                    (error) => {
+                        console.error('An error happened loading the cog model:', error, 'Loading fallback.');
+                        // Fallback: create a procedural cog
+                        const fallbackCog = createProceduralCog(12, 4, 0.5, 1, 0.3);
+                        fallbackCog.scale.set(0.8, 0.8, 0.8);
+                        heroScene.add(fallbackCog);
+                    }
+                );
+
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    const elapsedTime = clock.getElapsedTime();
+                    
+                    pointLight.intensity = 5 + Math.sin(elapsedTime * 2) * 2;
+
+                    heroCamera.position.x += (mouse.x * 1.5 - heroCamera.position.x) * 0.02;
+                    heroCamera.position.y += (mouse.y * 1.5 - heroCamera.position.y) * 0.02;
+                    heroCamera.lookAt(heroScene.position);
+                    controls.update();
+                    heroRenderer.render(heroScene, heroCamera);
+                };
+                animate();
+
+                window.addEventListener('resize', () => {
+                    heroCamera.aspect = window.innerWidth / window.innerHeight;
+                    heroCamera.updateProjectionMatrix();
+                    heroRenderer.setSize(window.innerWidth, window.innerHeight);
+                    heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                });
+            }
+
+            function createProceduralCog(numTeeth, outerRadius, innerRadius, width, toothHeight) {
+                const shape = new THREE.Shape();
+                const angleStep = (Math.PI * 2) / numTeeth;
+                const toothAngle = angleStep * 0.4;
+                const recessAngle = angleStep * 0.1;
+
+                for (let i = 0; i < numTeeth; i++) {
+                    const angle = i * angleStep;
+                    
+                    // Start of tooth base
+                    shape.lineTo(Math.cos(angle) * innerRadius, Math.sin(angle) * innerRadius);
+                    // To outer edge
+                    shape.lineTo(Math.cos(angle + recessAngle) * outerRadius, Math.sin(angle + recessAngle) * outerRadius);
+                    // Across tooth top
+                    shape.lineTo(Math.cos(angle + toothAngle) * outerRadius, Math.sin(angle + toothAngle) * outerRadius);
+                    // Back to inner edge
+                    shape.lineTo(Math.cos(angle + toothAngle + recessAngle) * innerRadius, Math.sin(angle + toothAngle + recessAngle) * innerRadius);
+                }
+
+                const extrudeSettings = {
+                    steps: 1,
+                    depth: width,
+                    bevelEnabled: false,
+                };
+
+                const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                const material = new THREE.MeshStandardMaterial({ color: 0x808080, metalness: 0.9, roughness: 0.4 });
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.position.z = -width/2;
+                
+                const group = new THREE.Group();
+                group.add(mesh);
+                return group;
+            }
+
+
+            function initAboutScene() {
+                const aboutCanvas = document.getElementById('about-canvas');
+                if(!aboutCanvas) return;
+                const aboutScene = new THREE.Scene();
+                const aboutCamera = new THREE.PerspectiveCamera(50, aboutCanvas.clientWidth / aboutCanvas.clientHeight, 0.1, 100);
+                aboutCamera.position.z = 5;
+                const aboutRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                aboutRenderer.setSize(aboutCanvas.clientWidth, aboutCanvas.clientHeight);
+                aboutRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                
+                const pointLight = new THREE.PointLight(0xB00000, 10, 50);
+                pointLight.position.set(0, 2, 4);
+                aboutScene.add(pointLight);
+                aboutScene.add(new THREE.AmbientLight(0x404040, 1));
+
+                const cog = createProceduralCog(10, 2, 1.5, 0.4, 0.4);
+                aboutScene.add(cog);
+
+                const animateAbout = () => {
+                    requestAnimationFrame(animateAbout);
+                    cog.rotation.z += 0.002 - (mouse.x * 0.001);
+                    cog.rotation.y += 0.001 - (mouse.y * 0.001);
+                    aboutRenderer.render(aboutScene, aboutCamera);
+                };
+                animateAbout();
+
+                new ResizeObserver(() => {
+                    const parent = aboutCanvas.parentElement;
+                    if(parent) {
+                        aboutCamera.aspect = parent.clientWidth / parent.clientHeight;
+                        aboutCamera.updateProjectionMatrix();
+                        aboutRenderer.setSize(parent.clientWidth, parent.clientHeight);
+                        aboutRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    }
+                }).observe(aboutCanvas.parentElement);
+            }
+
+            // --- GLOBAL MOUSE & SOUND LISTENERS ---
+            window.addEventListener('mousemove', e => {
+                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                customCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
+            window.addEventListener('mousedown', () => {
+                customCursor.classList.add('clicked');
+                if (!soundsReady) {
+                    Tone.start();
+                    soundsReady = true;
+                }
+                playClick();
+            });
+            window.addEventListener('mouseup', () => customCursor.classList.remove('clicked'));
+            
+            // --- MUTE BUTTON ---
+            const muteBtn = document.getElementById('mute-btn');
+            const soundOnIcon = document.getElementById('sound-on-icon');
+            const soundOffIcon = document.getElementById('sound-off-icon');
+            muteBtn.addEventListener('click', () => {
+                isMuted = !isMuted;
+                soundOnIcon.classList.toggle('hidden', isMuted);
+                soundOffIcon.classList.toggle('hidden', !isMuted);
+                if (!soundsReady) {
+                    Tone.start();
+                    soundsReady = true;
+                }
+            });
+            
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileNavLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+            // === YOUR DATA ===
+            const experienceData = [
+                { title: "Technical Intern", company: "Lady Bamford Charitable Trust (LBCT)", points: ["Developed a centralized database system to enhance collaborative workflows.", "Key contributions included schema design, CRUD functionality implementation, and data validation mechanisms.", "Helped establish collaboration between the organization and local government, gaining communication and management experience."] },
+                { title: "Full-Stack & AI Developer", company: "Personal Projects", points: ["Engineered multiple high-performance AI models for tasks like landslide detection, image segmentation, and emotion recognition.", "Built, containerized, and deployed full-stack web applications using Flask, Docker, and AWS.", "Implemented CI/CD pipelines and monitoring stacks (Prometheus, Grafana) for robust DevOps practices."] }
+            ];
+            
+            const projectsData = [
+                 { 
+                    name: "Landslide Detection", 
+                    category: "ai", 
+                    desc: "Engineered a high-performance landslide susceptibility mapping framework using a novel machine learning pipeline to address high-dimensional geospatial data and severe class imbalance. Achieved 91.5% accuracy and deployed as an interactive web application using Gradio.", 
+                    tags: [{n: "AI/ML", c: "red"}, {n: "Python", c: "blue"}, {n: "Gradio", c: "green"}], 
+                    link: "https://github.com/Monish21072004/Land-Slide-Detection-", 
+                    image: "https://i.imgur.com/LhBGSyq.jpeg" 
+                 },
+                { 
+                    name: "Medical Image Segmentation", 
+                    category: "ai", 
+                    desc: "Developed a deep learning framework for automated bone fracture segmentation using a U-Net generator enhanced with a self-attention bottleneck and a PatchGAN discriminator. Achieved over 200% improvement in IoU compared to a baseline U-Net on the FracAtlas dataset.", 
+                    tags: [{n: "GANs", c: "red"}, {n: "DeepLearning", c: "blue"}, {n: "U-Net", c: "green"}], 
+                    link: "https://github.com/Monish21072004/Medical-Image-Segmentation-for-Bone-Fracture-using-GAN", 
+                    image: "https://i.imgur.com/wV2GqG8.jpeg" 
+                },
+                { 
+                    name: "Dynamic Movie Search App", 
+                    category: "web", 
+                    desc: "Developed and deployed a fully containerized Movie Finder Web Application using Flask, Docker, Docker Compose, and Nginx, hosted on an AWS EC2 Instance. Integrated the TMDB API and implemented a Jenkins-driven CI/CD pipeline for zero-downtime deployments.", 
+                    tags: [{n: "Flask", c: "red"}, {n: "Docker", c: "blue"}, {n: "CI/CD", c: "green"}], 
+                    link: "https://github.com/RaghavTheMan/MovieFinder", 
+                    image: "https://i.imgur.com/4qj1zY4.jpeg" 
+                },
+                { 
+                    name: "Containerized Monitoring", 
+                    category: "devops", 
+                    desc: "Set up a lightweight monitoring stack using Docker Compose (Prometheus, Grafana, cAdvisor). Transitioned to a cloud-native approach by deploying the stack into a Kubernetes cluster via Helm charts (kube-prometheus-stack) and designed dashboards for real-time observability.", 
+                    tags: [{n: "Docker", c: "red"}, {n: "Kubernetes", c: "blue"}, {n: "Prometheus", c: "green"}], 
+                    link: "https://github.com/RaghavTheMan/cd2", 
+                    image: "https://i.imgur.com/bY3zT0B.jpeg"
+                },
+                { 
+                    name: "Facial Emotion Recognition", 
+                    category: "ai", 
+                    desc: "Developed a real-time facial emotion recognition system using Python, OpenCV, and TensorFlow. The model processes and classifies facial expressions from live video feeds, trained on benchmark emotion datasets to achieve high accuracy.", 
+                    tags: [{n: "AI/ML", c: "red"}, {n: "OpenCV", c: "blue"}, {n: "TensorFlow", c: "green"}], 
+                    link: "https://github.com/RaghavTheMan/Face-Emotion-Recognition", 
+                    image: "https://i.imgur.com/sTj2lO6.jpeg"
+                },
+                { 
+                    name: "Code-to-API", 
+                    category: "web", 
+                    desc: "A backend tool that converts Python scripts into fully functional APIs, streamlining the process of deploying machine learning models and other code as web services.", 
+                    tags: [{n: "Python", c: "red"}, {n: "API", c: "blue"}, {n: "Backend", c: "green"}], 
+                    link: "https://github.com/RaghavTheMan/Code-to-Api", 
+                    image: "https://i.imgur.com/Uv8vA2D.jpeg"
+                }
+            ];
+
+            const technologiesData = [
+                { name: "Python", desc: "My primary language for AI/ML, backend services, and scripting.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
+                { name: "JavaScript", desc: "Used for frontend interactivity and building dynamic web applications.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" },
+                { name: "TensorFlow", desc: "Experience in building and training deep learning models for various tasks.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
+                { name: "Deep Learning", desc: "Proficient in creating neural networks for research and production environments.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/pytorch/pytorch-original.svg" }, 
+                { name: "OpenCV", desc: "Extensive use in computer vision projects for image and video analysis.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" },
+                { name: "SQL", desc: "Strong skills in database design, querying, and management.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg" },
+                { name: "DevOps", desc: "Implementing CI/CD pipelines, containerization, and monitoring.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" },
+                { name: "Docker", desc: "Containerizing applications for consistent development and deployment.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" },
+                { name: "AWS", desc: "Familiar with deploying and managing applications on AWS.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
+                { name: "Kubernetes", desc: "Orchestrating containerized applications at scale.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" },
+                { name: "Git", desc: "Proficient in version control for collaborative and personal projects.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" },
+                { name: "HTML5 & CSS3", desc: "Crafting modern, responsive, and visually appealing user interfaces.", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" },
+            ];
+
+            // --- RENDER FUNCTIONS ---
+            const experienceContainer = document.getElementById('experience-container');
+            experienceData.forEach((exp, index) => {
+                const isLeft = index % 2 === 0;
+                const container = document.createElement('div');
+                container.className = `timeline-container ${isLeft ? 'left' : 'right'} gsap-reveal`;
+                container.innerHTML = `<div class="timeline-content"><h3 class="text-white text-2xl font-bold font-orbitron">${exp.title}</h3><p class="text-secondary-text text-lg font-semibold m-0">${exp.company}</p><ul class="mt-4 list-disc ml-5 space-y-2">${exp.points.map(p => `<li class="text-sm">${p}</li>`).join('')}</ul></div>`;
+                experienceContainer.appendChild(container);
+            });
+
+            const projectsContainer = document.getElementById('projects-container');
+            const renderProjects = (filter = 'all') => {
+                projectsContainer.innerHTML = '';
+                const filteredProjects = filter === 'all' ? projectsData : projectsData.filter(p => p.category === filter);
+                filteredProjects.forEach((p) => {
+                    const originalIndex = projectsData.indexOf(p);
+                    const card = document.createElement('div');
+                    card.className = 'project-card p-5 rounded-2xl w-full';
+                    card.dataset.index = originalIndex;
+                    card.innerHTML = `<div class="relative w-full h-[230px]"><img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover rounded-2xl" onerror="this.onerror=null;this.src='https://i.imgur.com/LhBGSyq.jpeg';"/></div><div class="mt-5"><h3 class="text-white font-bold text-2xl font-orbitron">${p.name}</h3><p class="mt-2 text-sm text-gray-400">${p.desc.substring(0, 100)}...</p></div><div class="mt-4 flex gap-2">${p.tags.map(t => `<p class="tag ${t.c}-text-gradient">#${t.n}</p>`).join('')}</div>`;
+                    projectsContainer.appendChild(card);
+                });
+                gsap.fromTo(projectsContainer.children, { y: 50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power3.out", stagger: 0.1 });
+            }
+
+            const techContainer = document.getElementById('tech-icons-container');
+            technologiesData.forEach((tech, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'tech-card p-4 rounded-lg flex flex-col items-center justify-center gap-2 gsap-reveal';
+                wrapper.dataset.index = index;
+                wrapper.innerHTML = `<img src="${tech.icon}" alt="${tech.name}" class="w-16 h-16 object-contain" /><p class="tech-name text-white font-medium text-center">${tech.name}</p>`;
+                techContainer.appendChild(wrapper);
+            });
+
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    playClick();
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    renderProjects(button.dataset.filter);
+                });
+                button.addEventListener('mouseenter', playHover);
+            });
+
+            // --- MODAL LOGIC ---
+            const projectModal = document.getElementById('project-modal');
+            const projectModalCloseBtn = projectModal.querySelector('.modal-close-btn');
+            projectsContainer.addEventListener('click', (e) => {
+                const card = e.target.closest('.project-card');
+                if (card) {
+                    playClick();
+                    const project = projectsData[card.dataset.index];
+                    document.getElementById('modal-project-image').src = project.image;
+                    document.getElementById('modal-project-title').innerText = project.name;
+                    document.getElementById('modal-project-desc').innerText = project.desc;
+                    document.getElementById('modal-project-link').href = project.link;
+                    
+                    const demoLink = document.getElementById('modal-project-demo-link');
+                    if (project.demo) {
+                        demoLink.href = project.demo;
+                        demoLink.style.display = 'inline-block';
+                    } else {
+                        demoLink.style.display = 'none';
+                    }
+
+                    const tagsContainer = document.getElementById('modal-project-tags');
+                    tagsContainer.innerHTML = project.tags.map(t => `<p class="tag ${t.c}-text-gradient bg-black bg-opacity-20 px-2 py-1 rounded-md">#${t.n}</p>`).join('');
+                    projectModal.classList.add('active');
+                    document.body.classList.add('modal-open');
+                }
+            });
+
+            const techModal = document.getElementById('tech-modal');
+            const techModalCloseBtn = techModal.querySelector('.modal-close-btn');
+            techContainer.addEventListener('click', (e) => {
+                const card = e.target.closest('.tech-card');
+                if (card) {
+                    playClick();
+                    const tech = technologiesData[card.dataset.index];
+                    document.getElementById('modal-tech-image').src = tech.icon;
+                    document.getElementById('modal-tech-title').innerText = tech.name;
+                    document.getElementById('modal-tech-desc').innerText = tech.desc;
+                    techModal.classList.add('active');
+                    document.body.classList.add('modal-open');
+                }
+            });
+
+            function closeModal(modal) { playClick(); modal.classList.remove('active'); document.body.classList.remove('modal-open'); }
+            projectModalCloseBtn.addEventListener('click', () => closeModal(projectModal));
+            projectModal.addEventListener('click', (e) => { if (e.target === projectModal) closeModal(projectModal); });
+            techModalCloseBtn.addEventListener('click', () => closeModal(techModal));
+            techModal.addEventListener('click', (e) => { if (e.target === techModal) closeModal(techModal); });
+            
+            // --- GSAP ANIMATIONS ---
+            gsap.utils.toArray('.gsap-reveal').forEach(el => {
+                gsap.fromTo(el, {y: 50, autoAlpha: 0}, { y: 0, autoAlpha: 1, duration: 1.2, ease: "power3.out", stagger: 0.1, scrollTrigger: { trigger: el, start: "top 90%" } });
+            });
+
+            document.querySelectorAll('.section-head').forEach(heading => {
+                const text = heading.textContent;
+                heading.innerHTML = '';
+                text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.className = 'char inline-block';
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    heading.appendChild(span);
+                });
+                gsap.to(heading.querySelectorAll('.char'), { y: 0, stagger: 0.05, delay: 0.2, duration: .1, scrollTrigger: { trigger: heading, start: 'top 90%' } });
+            });
+
+            const contactIcons = document.querySelectorAll('.contact-icon-link');
+            contactIcons.forEach(icon => {
+                icon.addEventListener('mousemove', e => {
+                    const rect = icon.getBoundingClientRect();
+                    const x = e.clientX - (rect.left + rect.width / 2);
+                    const y = e.clientY - (rect.top + rect.height / 2);
+                    gsap.to(icon, { x: x * 0.3, y: y * 0.3, duration: 0.7, ease: "power4.out" });
+                });
+                icon.addEventListener('mouseleave', () => {
+                    gsap.to(icon, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+                });
+                icon.addEventListener('mouseenter', playHover);
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('mouseenter', playHover);
+            });
+
+            // --- GITHUB API FETCH ---
+            async function getGitHubStats() {
+                try {
+                    const userResponse = await fetch('https://api.github.com/users/RaghavTheMan'); 
+                    const userData = await userResponse.json();
+                    document.getElementById('repo-count').innerText = userData.public_repos || 0;
+
+                    const reposResponse = await fetch('https://api.github.com/users/RaghavTheMan/repos?per_page=100');
+                    const reposData = await reposResponse.json();
+                    const totalStars = reposData.reduce((acc, repo) => acc + repo.stargazers_count, 0);
+                    document.getElementById('star-count').innerText = totalStars;
+                } catch (error) {
+                    console.error("Error fetching GitHub stats:", error);
+                    document.getElementById('repo-count').innerText = 'N/A';
+                    document.getElementById('star-count').innerText = 'N/A';
+                }
+            }
+
+            // --- INITIALIZE ---
+            initHeroScene();
+            initAboutScene();
+            renderProjects(); 
+            getGitHubStats();
+        });
+    </script>
 </body>
 </html>
 
