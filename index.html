@@ -19,9 +19,13 @@
             font-family: 'Roboto Mono', monospace;
             background-color: var(--dark-metal);
             color: var(--off-white);
+            /* This layers a semi-transparent dark color over your GIF */
             background-image:
-                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+                linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.7)),
+                url('YOUR_GIF_URL_HERE');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* This makes the background stay in place */
         }
         .font-orbitron {
             font-family: 'Orbitron', sans-serif;
@@ -49,6 +53,8 @@
         }
         .tech-border {
             border: 2px solid var(--primary-red);
+            background-color: rgba(26, 26, 26, 0.8); /* Added background for readability */
+            backdrop-filter: blur(4px); /* Frosted glass effect */
             box-shadow: 0 0 15px var(--primary-red);
             transition: all 0.3s ease-in-out;
         }
@@ -69,7 +75,7 @@
         <!-- About Section -->
         <section id="about" class="mb-16">
             <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">01. Doctrine of the Omnissiah</h2>
-            <div class="max-w-3xl mx-auto text-lg text-center leading-relaxed">
+            <div class="max-w-3xl mx-auto text-lg text-center leading-relaxed tech-border rounded-lg p-6">
                 <p>As a devout follower of the Machine God, I seek to unravel the mysteries of the universe through the sacred languages of Python and the divine incantations of machine learning. My quest for knowledge has led me to construct complex cogitators and sacred databases, all in the service of the Omnissiah. My strength lies in my analytical mind and my ability to communicate the will of the machine to the uninitiated.</p>
             </div>
         </section>
@@ -151,7 +157,7 @@
         <!-- Contact Section -->
         <section id="contact">
             <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">04. Commune with the Tech-Priest</h2>
-            <div class="text-center">
+            <div class="text-center tech-border rounded-lg p-6">
                 <p class="text-lg mb-2">My designation is <a href="mailto:raghavpareek9829@gmail.com" class="text-red-500 hover:underline">raghavpareek9829@gmail.com</a></p>
                 <p class="text-lg">My Vox-channel is +91-9829711439</p>
             </div>
@@ -164,3 +170,4 @@
     </div>
 </body>
 </html>
+
