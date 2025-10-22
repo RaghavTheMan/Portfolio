@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech-Priest Raghav Pareek | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #8B0000;
+            --dark-metal: #1a1a1a;
+            --off-white: #e0e0e0;
+            --glow-blue: #00bfff;
+        }
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--dark-metal);
+            color: var(--off-white);
+            background-image:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .text-glow {
+            text-shadow: 0 0 5px var(--glow-blue), 0 0 10px var(--glow-blue);
+        }
+        .border-glow {
+            box-shadow: 0 0 10px var(--glow-blue), 0 0 20px var(--glow-blue) inset;
+        }
+        .cog-icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            background-color: var(--primary-red);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .project-card:hover .cog-icon {
+            transform: rotate(180deg);
+        }
+        .skill-item:hover {
+            color: var(--glow-blue);
+            transform: scale(1.05);
+        }
+        .tech-border {
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 0 15px var(--primary-red);
+            transition: all 0.3s ease-in-out;
+        }
+        .tech-border:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--primary-red);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="font-orbitron text-5xl font-bold text-red-700 mb-2">Raghav Pareek</h1>
+            <p class="text-xl text-glow">Tech-Priest Enginseer of the Omnissiah</p>
+        </header>
+
+        <!-- About Section -->
+        <section id="about" class="mb-16">
+            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">01. Doctrine of the Omnissiah</h2>
+            <div class="max-w-3xl mx-auto text-lg text-center leading-relaxed">
+                <p>As a devout follower of the Machine God, I seek to unravel the mysteries of the universe through the sacred languages of Python and the divine incantations of machine learning. My quest for knowledge has led me to construct complex cogitators and sacred databases, all in the service of the Omnissiah. My strength lies in my analytical mind and my ability to communicate the will of the machine to the uninitiated.</p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mb-16">
+            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">02. Litanies of the Omnissiah</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">Python</p>
+                </div>
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">Machine Learning</p>
+                </div>
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">Deep Learning</p>
+                </div>
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">DevOps & CI/CD</p>
+                </div>
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">JavaScript</p>
+                </div>
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">HTML/CSS</p>
+                </div>
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">Image Processing</p>
+                </div>
+                <div class="skill-item p-4 text-center transition-transform">
+                    <p class="font-bold text-xl">Docker & AWS</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-16">
+            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">03. Blessed Artifice</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card -->
+                <div class="project-card tech-border rounded-lg p-6">
+                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Face-Emotion Recognition</h3>
+                    <p class="text-sm mb-4">A cogitator capable of discerning the weakness of the flesh through optical augury.</p>
+                    <a href="https://github.com/RaghavTheMan/Face-Emotion-Recognition" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+                </div>
+                <!-- Project Card -->
+                <div class="project-card tech-border rounded-lg p-6">
+                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Code-to-Api</h3>
+                    <p class="text-sm mb-4">Transmuting rune-script into a functioning Vox-Caster for data transmission.</p>
+                    <a href="https://github.com/RaghavTheMan/Code-to-Api" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+                </div>
+                <!-- Project Card -->
+                <div class="project-card tech-border rounded-lg p-6">
+                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>MovieFinder</h3>
+                    <p class="text-sm mb-4">A data-slate that accesses the vast archives of pict-captures for the masses.</p>
+                    <a href="https://github.com/RaghavTheMan/MovieFinder" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+                </div>
+                <!-- Project Card -->
+                <div class="project-card tech-border rounded-lg p-6">
+                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Land-Slide Detection</h3>
+                    <p class="text-sm mb-4">A predictive engine that foretells the treachery of the earth with orbital pict-data.</p>
+                    <a href="https://github.com/Monish21072004/Land-Slide-Detection-" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+                </div>
+                <!-- Project Card -->
+                <div class="project-card tech-border rounded-lg p-6">
+                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Medical Image Segmentation</h3>
+                    <p class="text-sm mb-4">Utilizing forbidden arts of Generative Adversarial Networks to reveal fractures in the bone.</p>
+                    <a href="https://github.com/Monish21072004/Medical-Image-Segmentation-for-Bone-Fracture-using-GAN" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+                </div>
+                <!-- Project Card -->
+                <div class="project-card tech-border rounded-lg p-6">
+                    <h3 class="font-orbitron text-xl font-bold mb-2 flex items-center"><span class="cog-icon mr-2"></span>Smart Attendance System</h3>
+                    <p class="text-sm mb-4">An automated system to track the faithful, using facial recognition protocols.</p>
+                    <a href="https://github.com/Monish21072004/Smart-Attendance-System" target="_blank" class="text-red-500 hover:text-red-400 transition-colors">Inspect Artifice &gt;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="font-orbitron text-3xl text-center mb-8 border-b-2 border-red-700 pb-2">04. Commune with the Tech-Priest</h2>
+            <div class="text-center">
+                <p class="text-lg mb-2">My designation is <a href="mailto:raghavpareek9829@gmail.com" class="text-red-500 hover:underline">raghavpareek9829@gmail.com</a></p>
+                <p class="text-lg">My Vox-channel is +91-9829711439</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 pt-8 border-t border-gray-700">
+            <p class="text-sm text-gray-500">Praise the Omnissiah. All glory to the Machine God.</p>
+        </footer>
+    </div>
+</body>
+</html>
