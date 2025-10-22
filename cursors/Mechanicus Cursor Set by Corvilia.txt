@@ -1,0 +1,19 @@
+This set includes the following:
+
+12 pixel art servo skull cursor size 32x32 pixels
+
+-normal cursor
+-working in background animated cursor
+-busy animated cursor
+-help selection cursor
+-text select cursor
+-unavailable cursor
+-vertical resize cursor
+-horizontal resize cursor
+-two diagonal resize cursors
+-move cursor
+-link cursor
+
+Made by Emi Rojas aka Lady Corvilia
+https://bsky.app/profile/corvilia.bsky.social
+ko-fi.com/corvilia
