@@ -35,7 +35,7 @@
             font-family: 'Roboto Mono', monospace;
             background-color: var(--dark-metal);
             color: var(--off-white);
-            /* === ACTION REQUIRED: REPLACE THIS URL WITH YOUR BACKGROUND IMAGE LINK === */
+            /* === FINAL STEP: Upload your background image to GitHub and paste the RAW URL here === */
             background-image: 
                 linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)),
                 url('https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/axun66htwmb51.webp'); 
@@ -468,9 +468,7 @@
 
                 // Load 3D Cog Model
                 const loader = new GLTFLoader();
-                
-                // === ACTION REQUIRED: REPLACE THIS URL WITH YOUR 3D MODEL (.GLTF/.GLB) LINK ===
-                const modelUrl = 'https://raw.githubusercontent.com/RaghavTheMan/temp-assets/main/gear.glb'; 
+                const modelUrl = 'https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/gear.glb'; 
                 
                 loader.load(
                     modelUrl,
@@ -529,13 +527,9 @@
                 for (let i = 0; i < numTeeth; i++) {
                     const angle = i * angleStep;
                     
-                    // Start of tooth base
                     shape.lineTo(Math.cos(angle) * innerRadius, Math.sin(angle) * innerRadius);
-                    // To outer edge
                     shape.lineTo(Math.cos(angle + recessAngle) * outerRadius, Math.sin(angle + recessAngle) * outerRadius);
-                    // Across tooth top
                     shape.lineTo(Math.cos(angle + toothAngle) * outerRadius, Math.sin(angle + toothAngle) * outerRadius);
-                    // Back to inner edge
                     shape.lineTo(Math.cos(angle + toothAngle + recessAngle) * innerRadius, Math.sin(angle + toothAngle + recessAngle) * innerRadius);
                 }
 
@@ -562,7 +556,7 @@
                 const aboutScene = new THREE.Scene();
                 const aboutCamera = new THREE.PerspectiveCamera(50, aboutCanvas.clientWidth / aboutCanvas.clientHeight, 0.1, 100);
                 aboutCamera.position.z = 5;
-                const aboutRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                const aboutRenderer = new THREE.WebGLRenderer({ canvas: aboutCanvas, antialias: true, alpha: true });
                 aboutRenderer.setSize(aboutCanvas.clientWidth, aboutCanvas.clientHeight);
                 aboutRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 
@@ -642,7 +636,7 @@
                     desc: "Engineered a high-performance landslide susceptibility mapping framework using a novel machine learning pipeline to address high-dimensional geospatial data and severe class imbalance. Achieved 91.5% accuracy and deployed as an interactive web application using Gradio.", 
                     tags: [{n: "AI/ML", c: "red"}, {n: "Python", c: "blue"}, {n: "Gradio", c: "green"}], 
                     link: "https://github.com/Monish21072004/Land-Slide-Detection-", 
-                    image: "https://i.imgur.com/LhBGSyq.jpeg" 
+                    image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/Land-Slide-Detection.jpeg" 
                  },
                 { 
                     name: "Medical Image Segmentation", 
@@ -650,7 +644,7 @@
                     desc: "Developed a deep learning framework for automated bone fracture segmentation using a U-Net generator enhanced with a self-attention bottleneck and a PatchGAN discriminator. Achieved over 200% improvement in IoU compared to a baseline U-Net on the FracAtlas dataset.", 
                     tags: [{n: "GANs", c: "red"}, {n: "DeepLearning", c: "blue"}, {n: "U-Net", c: "green"}], 
                     link: "https://github.com/Monish21072004/Medical-Image-Segmentation-for-Bone-Fracture-using-GAN", 
-                    image: "https://i.imgur.com/wV2GqG8.jpeg" 
+                    image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/Medical-Image-Segmentation-for-Bone-Fracture-using-GAN.png" 
                 },
                 { 
                     name: "Dynamic Movie Search App", 
@@ -658,7 +652,7 @@
                     desc: "Developed and deployed a fully containerized Movie Finder Web Application using Flask, Docker, Docker Compose, and Nginx, hosted on an AWS EC2 Instance. Integrated the TMDB API and implemented a Jenkins-driven CI/CD pipeline for zero-downtime deployments.", 
                     tags: [{n: "Flask", c: "red"}, {n: "Docker", c: "blue"}, {n: "CI/CD", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/MovieFinder", 
-                    image: "https://i.imgur.com/4qj1zY4.jpeg" 
+                    image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/MovieFinder.png" 
                 },
                 { 
                     name: "Containerized Monitoring", 
@@ -666,7 +660,7 @@
                     desc: "Set up a lightweight monitoring stack using Docker Compose (Prometheus, Grafana, cAdvisor). Transitioned to a cloud-native approach by deploying the stack into a Kubernetes cluster via Helm charts (kube-prometheus-stack) and designed dashboards for real-time observability.", 
                     tags: [{n: "Docker", c: "red"}, {n: "Kubernetes", c: "blue"}, {n: "Prometheus", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/cd2", 
-                    image: "https://i.imgur.com/bY3zT0B.jpeg"
+                    image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/cd2.png"
                 },
                 { 
                     name: "Facial Emotion Recognition", 
@@ -674,7 +668,7 @@
                     desc: "Developed a real-time facial emotion recognition system using Python, OpenCV, and TensorFlow. The model processes and classifies facial expressions from live video feeds, trained on benchmark emotion datasets to achieve high accuracy.", 
                     tags: [{n: "AI/ML", c: "red"}, {n: "OpenCV", c: "blue"}, {n: "TensorFlow", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/Face-Emotion-Recognition", 
-                    image: "https://i.imgur.com/sTj2lO6.jpeg"
+                    image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/Face-Emotion-Recognition.png"
                 },
                 { 
                     name: "Code-to-API", 
@@ -682,7 +676,7 @@
                     desc: "A backend tool that converts Python scripts into fully functional APIs, streamlining the process of deploying machine learning models and other code as web services.", 
                     tags: [{n: "Python", c: "red"}, {n: "API", c: "blue"}, {n: "Backend", c: "green"}], 
                     link: "https://github.com/RaghavTheMan/Code-to-Api", 
-                    image: "https://i.imgur.com/Uv8vA2D.jpeg"
+                    image: "https://raw.githubusercontent.com/RaghavTheMan/Portfolio/main/assets/Code-to-Api.png"
                 }
             ];
 
